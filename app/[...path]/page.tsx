@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Storefront } from "@/components/storefront";
+import { auth } from "@/auth";
 
 const labels: Record<string, { title: string; intro: string }> = {
   technicians: { title: "ভরসার মিস্ত্রি খুঁজুন", intro: "আপনার এলাকার ভেরিফাইড টেকনিশিয়ানরা কাজের জন্য প্রস্তুত।" },
@@ -22,6 +23,10 @@ const labels: Record<string, { title: string; intro: string }> = {
 export default async function GenericPage({ params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
   const key = path[0] ?? "home";
+  if (key === "admin") {
+    const session = await auth();
+    console.log("[admin-debug] session.user:", session?.user ?? null);
+  }
   const label = labels[key] ?? { title: "HomeFix BD", intro: "আপনার ঘরের কাজ একটু সহজ হোক।" };
   return <Storefront><main className="mx-auto flex min-h-[55vh] max-w-4xl flex-col justify-center px-4 py-16 sm:px-6"><p className="text-xs uppercase tracking-[.2em] text-sale">HomeFix BD · {path.join(" / ")}</p><h1 className="display mt-4 text-5xl font-semibold">{label.title}</h1><p className="mt-5 max-w-xl text-lg leading-8 text-foreground/60">{label.intro}</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/shop" className="bg-foreground px-5 py-3 text-sm font-semibold text-background">Browse products</Link><Link href="/services" className="border border-foreground px-5 py-3 text-sm font-semibold">Explore services</Link></div></main></Storefront>;
 }

@@ -4,7 +4,7 @@ import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
-import { users } from "@/lib/mongodb";
+import { sellers, technicians, users } from "@/lib/mongodb";
 import { forgotPasswordSchema, registerSchema, resetPasswordSchema } from "@/lib/schemas/auth";
 
 function formValues(formData: FormData) {
@@ -18,8 +18,31 @@ export async function registerAction(formData: FormData) {
   const collection = await users();
   const email = input.email.toLowerCase();
   if (await collection.findOne({ email })) return { error: "Unable to create this account." };
-  const user = { email, name: input.name, phone: input.phone, passwordHash: await hash(input.password, 10), role: "customer" as const, addresses: [], createdAt: new Date().toISOString() };
-  await collection.insertOne(user);
+  const user = { email, name: input.name, phone: input.phone, passwordHash: await hash(input.password, 10), role: input.role, addresses: [], createdAt: new Date().toISOString() };
+  const result = await collection.insertOne(user);
+  const now = new Date().toISOString();
+  if (input.role === "technician") {
+    await (await technicians()).insertOne({
+      userId: result.insertedId.toString(), id: `tech-${result.insertedId.toString().slice(-8)}`,
+      name: input.name, nameBn: input.name, phone: input.phone, photo: "/homefix-bd/technicians/placeholder.webp",
+      verified: false, verificationStatus: "pending", experienceYears: 0, skills: [], serviceAreas: [],
+      rating: 0, completedJobs: 0, reviews: [], visitCharge: 0, availability: [], walletBalance: 0,
+      active: true, createdAt: now,
+    });
+  } else if (input.role === "seller") {
+    await (await sellers()).insertOne({
+      userId: result.insertedId.toString(), businessName: input.name, ownerName: input.name, phone: input.phone,
+      address: {}, verified: false, verificationStatus: "pending", active: true, createdAt: now,
+    });
+  }
+  if (input.role === "technician") {
+    await signIn("credentials", { email, password: input.password, redirectTo: "/technician/profile?onboarding=1" });
+    redirect("/technician/profile?onboarding=1");
+  }
+  if (input.role === "seller") {
+    await signIn("credentials", { email, password: input.password, redirectTo: "/seller/settings?onboarding=1" });
+    redirect("/seller/settings?onboarding=1");
+  }
   await signIn("credentials", { email, password: input.password, redirectTo: "/account" });
   redirect("/account");
 }

@@ -1,0 +1,9 @@
+"use server";
+import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/lib/rbac";
+import { orders } from "@/lib/mongodb";
+import { statusSchema } from "@/lib/schemas/admin";
+const transitions: Record<string, string[]> = { pending: ["paid", "cancelled"], paid: ["processing", "cancelled"], processing: ["packed", "cancelled"], packed: ["shipped", "cancelled"], shipped: ["out_for_delivery", "cancelled"], out_for_delivery: ["delivered"], delivered: ["returned"], cancelled: [], returned: [] };
+export async function updateOrderStatusAction(formData: FormData) { await requireAdmin(); const parsed = statusSchema.safeParse(Object.fromEntries(formData)); if (!parsed.success) return { error: "Invalid status." }; const order = await (await orders()).findOne({ id: parsed.data.id }); if (!order || !transitions[order.status]?.includes(parsed.data.status)) return { error: "Invalid order transition." }; await (await orders()).updateOne({ id: order.id }, { $set: { status: parsed.data.status, updatedAt: new Date().toISOString(), ...(parsed.data.status === "paid" ? { paymentStatus: "paid" } : {}) } }); revalidatePath("/admin/orders"); revalidatePath(`/admin/orders/${order.id}`); return { success: true }; }
+export async function cancelOrderAction(id: string) { await requireAdmin(); const order = await (await orders()).findOne({ id }); if (!order || order.status === "delivered") return { error: "Order cannot be cancelled." }; await (await orders()).updateOne({ id }, { $set: { status: "cancelled", paymentStatus: order.paymentStatus === "paid" ? "refunded" : "failed", updatedAt: new Date().toISOString() } }); revalidatePath("/admin/orders"); return { success: true }; }
+export async function refundOrderAction(id: string) { await requireAdmin(); await (await orders()).updateOne({ id }, { $set: { paymentStatus: "refunded", status: "returned", updatedAt: new Date().toISOString() } }); revalidatePath("/admin/orders"); return { success: true }; }

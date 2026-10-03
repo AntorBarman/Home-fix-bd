@@ -33,6 +33,9 @@ export type Product = {
   badge?: "new" | "hot" | "sale";
   stockQty: number;
   inStock: boolean;
+  published?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
   installable: boolean;
   installServiceSlug?: string;
   features: string[];
@@ -98,6 +101,28 @@ export type Technician = {
   visitCharge: number;
   active: boolean;
   availability?: { day: string; slots: string[] }[];
+  reviews?: ReviewDoc[];
+  walletBalance?: number;
+  nidNumber?: string;
+  nidImageUrl?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+export type Seller = {
+  userId: string;
+  businessName: string;
+  ownerName: string;
+  phone: string;
+  address: Record<string, string>;
+  tradeLicenseUrl?: string;
+  nidUrl?: string;
+  bankAccount?: { bankName: string; accountNumber: string; branch: string };
+  mfs?: { provider: "bkash" | "nagad"; number: string };
+  verified: boolean;
+  verificationStatus: "pending" | "under_review" | "verified" | "rejected" | "suspended";
+  active: boolean;
+  createdAt: string;
+  updatedAt?: string;
 };
 
 export type OrderItem = {
@@ -141,7 +166,7 @@ export type Booking = {
   customerId: string;
   customerName: string;
   customerPhone: string;
-  technicianId?: string;
+  technicianId?: string | null;
   technicianName?: string;
   serviceSlug: string;
   serviceName: string;
@@ -151,6 +176,10 @@ export type Booking = {
   status: BookingStatus;
   scheduledAt: string;
   visitFee: number;
+  quotation?: { amount: number; total?: number; visitFee?: number; labour?: number; parts?: { name: string; price: number }[]; notes: string; issuedAt: string; status: "pending" | "accepted" | "rejected" };
+  invoiceUrl?: string;
+  warrantyId?: string;
+  customerConfirmedAt?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -162,7 +191,10 @@ export type ReviewDoc = {
   author: string;
   authorEmail?: string;
   rating: number;
+  title?: string;
   body: string;
+  photos?: string[];
+  reason?: string;
   date: string;
   status: "pending" | "approved" | "rejected";
 };
@@ -171,6 +203,8 @@ export type Customer = { id: string; email: string; name: string; phone?: string
 export type User = { id?: string; email: string; name: string; passwordHash?: string; image?: string; phone?: string; role: "customer" | "technician" | "seller" | "admin"; addresses: Address[]; createdAt: string };
 export type Post = { slug: string; title: string; titleBn: string; excerpt: string; category: string; author: string; date: string; readTime: string; image: string; blocks: { type: string; text?: string; items?: string[] }[] };
 export type StoreSettings = {
+  _id?: string;
+  key?: string;
   name: string;
   tagline: string;
   logo: string;
@@ -182,6 +216,8 @@ export type StoreSettings = {
   enableNagad: boolean;
   enableSslcommerz: boolean;
 };
-export type Warranty = { id: string; orderId: string; itemIndex: number; startDate: string; endDate: string; type: "product" | "service"; provider: string };
-export type Complaint = { id: string; customerId: string; subject: string; description: string; status: string; createdAt: string; updatedAt: string };
-export type ProblemReport = { id: string; customerId?: string; text: string; mediaUrls: string[]; category?: string; confidence?: string; createdAt: string };
+export type WarrantyClaim = { id: string; reason: string; description: string; photos: string[]; status: "open" | "in_progress" | "approved" | "rejected" | "resolved"; note?: string; createdAt: string; resolvedAt?: string };
+export type Warranty = { id: string; orderId: string; itemIndex: number; startDate: string; endDate: string; type: "product" | "service"; provider: string; productId?: string; serviceSlug?: string; claims?: WarrantyClaim[] };
+export type SupportMessage = { id: string; author: string; authorRole: "customer" | "admin"; body: string; createdAt: string };
+export type Complaint = { id?: string; ticketNumber?: string; customerId: string; customerName?: string; customerEmail?: string; category?: string; subject: string; description: string; relatedOrderId?: string; relatedBookingNumber?: string; status: "open" | "in_progress" | "resolved" | "closed"; messages?: SupportMessage[]; createdAt: string; updatedAt?: string };
+export type ProblemReport = { id: string; customerId?: string; text: string; mediaUrls: string[]; category?: string; confidence?: "low" | "medium" | "high"; keywords?: string[]; recommendedServiceSlug?: string; recommendedProductSlugs?: string[]; address?: string; phone?: string; createdAt: string };

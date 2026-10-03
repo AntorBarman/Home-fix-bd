@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { requireUser } from "@/lib/rbac";
+import { bookings } from "@/lib/mongodb";
+import { Storefront } from "@/components/storefront";
+export default async function AccountBookings() { const session = await requireUser(); const list = await (await bookings()).find({ customerId: session.user.id }).sort({ createdAt: -1 }).toArray(); return <Storefront><main className="mx-auto max-w-4xl px-4 py-12 sm:px-6"><h1 className="display text-5xl font-semibold">আমার বুকিং</h1><div className="mt-8 divide-y divide-border border-y border-border">{list.map((booking) => <Link href={`/account/bookings/${booking.id}`} key={booking.id} className="block py-5"><div className="flex justify-between gap-4"><strong>{booking.serviceName}</strong><span className="text-sm">{booking.status}</span></div><p className="mt-2 text-sm text-foreground/55">{booking.bookingNumber} · {booking.scheduledAt}</p></Link>)}{!list.length && <p className="py-8 text-foreground/60">No bookings yet.</p>}</div></main></Storefront>; }

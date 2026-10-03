@@ -1,0 +1,5 @@
+import { notFound } from "next/navigation";
+import { requireUser } from "@/lib/rbac";
+import { bookings, warranties } from "@/lib/mongodb";
+import { Storefront } from "@/components/storefront";
+export default async function AccountBookingDetail({ params }: { params: Promise<{ id: string }> }) { const session = await requireUser(); const booking = await (await bookings()).findOne({ id: (await params).id, customerId: session.user.id }); if (!booking) notFound(); const warranty = await (await warranties()).findOne({ orderId: booking.id }); return <Storefront><main className="mx-auto max-w-3xl px-4 py-12 sm:px-6"><h1 className="display text-5xl font-semibold">{booking.serviceName}</h1><p className="mt-3 text-foreground/60">{booking.bookingNumber} · {booking.status}</p><div className="mt-8 border border-border p-6"><p>{booking.problemDescription}</p><p className="mt-4 text-sm text-foreground/60">{booking.address.line1} · {booking.scheduledAt}</p></div>{warranty && <div className="mt-6 border border-success p-6"><strong>Warranty active</strong><p className="mt-2 text-sm">Valid until {warranty.endDate}</p></div>}</main></Storefront>; }

@@ -46,8 +46,8 @@ try {
   await upsert("services", services, "slug");
   await upsert("technicians", technicians, "id");
   await db.collection("coupons").updateOne({ code: "FIX10" }, { $set: { code: "FIX10", type: "percent", value: 10, minSubtotal: 1000, active: true } }, { upsert: true });
-  await db.collection("settings").updateOne({ key: "store" }, { $set: {
-    key: "store", name: "HomeFix BD", tagline: "বাসার সব প্রয়োজন, এক প্ল্যাটফর্মে।", logo: "/homefix-bd/logo.svg",
+  await db.collection("settings").updateOne({ _id: "singleton" }, { $set: {
+    _id: "singleton", name: "HomeFix BD", tagline: "বাসার সব প্রয়োজন, এক প্ল্যাটফর্মে।", logo: "/homefix-bd/logo.svg",
     defaultLocale: "bn", defaultCurrency: "BDT", defaultTheme: "light", enableCod: true, enableBkash: true, enableNagad: true, enableSslcommerz: true, updatedAt: now,
   } }, { upsert: true });
   const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
@@ -71,6 +71,7 @@ try {
     db.collection("orders").createIndex({ sslcommerzTxnId: 1 }, { unique: true, sparse: true }),
     db.collection("bookings").createIndex({ bookingNumber: 1 }, { unique: true }),
     db.collection("coupons").createIndex({ code: 1 }, { unique: true }),
+    db.collection("settings").createIndex({ _id: 1 }, { unique: true }),
   ]);
   console.log(`[seed] Seed complete: ${catalog.length} products, ${services.length} services, ${technicians.length} technicians`);
 } finally {

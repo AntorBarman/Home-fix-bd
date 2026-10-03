@@ -1,0 +1,4 @@
+import { notFound } from "next/navigation";
+import { requireAdmin } from "@/lib/rbac";
+import { sellers } from "@/lib/mongodb";
+export default async function SellerDetail({ params }: { params: Promise<{ id: string }> }) { await requireAdmin(); const seller = await (await sellers()).findOne({ userId: (await params).id }); if (!seller) notFound(); return <main><h2 className="display text-4xl font-semibold">{seller.businessName}</h2><div className="mt-8 border border-border p-5 grid gap-3 text-sm"><p>Owner: {seller.ownerName}</p><p>Phone: {seller.phone}</p><p>Address: {Object.values(seller.address || {}).join(", ")}</p><p>Verification: {seller.verificationStatus}</p><p>Trade license: {seller.tradeLicenseUrl || "Not supplied"}</p><p>NID: {seller.nidUrl || "Not supplied"}</p><p>Bank: {seller.bankAccount?.bankName || "Not supplied"}</p></div></main>; }

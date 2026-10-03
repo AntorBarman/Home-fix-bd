@@ -1,4 +1,7 @@
 import type { CartLine, Coupon, Product } from "@/types";
+export function createOrderNumber(sequence: number, date = new Date()) {
+  return `HF-${date.getFullYear()}-${String(sequence).padStart(5, "0")}`;
+}
 export function shippingFor(subtotalBdt: number, outsideDhaka = false) { return subtotalBdt >= 5000 ? 0 : outsideDhaka ? 150 : 100; }
 export function findSizeQty(product: Product, color: string, size: string) {
   return product.variants.find((v) => v.color === color)?.sizes.find((s) => s.size === size)?.qty ?? 0;

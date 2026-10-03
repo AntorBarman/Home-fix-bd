@@ -1,0 +1,3 @@
+import { requireAdmin } from "@/lib/rbac";
+import { coupons } from "@/lib/mongodb";
+export default async function Coupons() { await requireAdmin(); const list = await (await coupons()).find({}).sort({ code: 1 }).toArray(); return <div><h2 className="display text-4xl font-semibold">Coupons / কুপন</h2><div className="mt-8 divide-y divide-border border-y border-border">{list.map((coupon) => <div className="flex flex-wrap justify-between gap-3 py-4 text-sm" key={coupon.code}><span><strong>{coupon.code}</strong> · {coupon.type} {coupon.value}</span><span>{coupon.active ? "Active" : "Inactive"} · min ৳{coupon.minSubtotal || 0}</span></div>)}</div></div>; }

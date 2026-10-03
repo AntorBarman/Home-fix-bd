@@ -1,0 +1,2 @@
+import { requireAdmin } from "@/lib/rbac";
+export default async function AdminProfile() { const session = await requireAdmin(); return <main><h2 className="display text-4xl font-semibold">Admin profile / প্রোফাইল</h2><div className="mt-8 border border-border p-5"><p>Name: {session.user.name}</p><p className="mt-2">Email: {session.user.email}</p><p className="mt-8 text-sm text-foreground/60">Password changes can be completed through the account security flow.</p></div></main>; }

@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function CheckoutCancel() { return <main className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6"><p className="text-xs uppercase tracking-[.2em] text-sale">Payment cancelled</p><h1 className="display mt-4 text-5xl font-semibold">আপনার পেমেন্ট বাতিল হয়েছে।</h1><p className="mt-5 text-foreground/60">আপনার কার্টে পণ্যগুলো নিরাপদে রাখা হয়েছে। চাইলে আবার চেষ্টা করুন।</p><Link href="/checkout" className="mt-8 inline-flex bg-foreground px-6 py-3 text-sm font-semibold text-background">Return to checkout</Link></main>; }

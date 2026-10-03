@@ -11,6 +11,7 @@ export const registerSchema = z.object({
   name: z.string().trim().min(2),
   email: z.string().email(),
   phone: z.string().regex(bangladeshPhone, "Enter a valid Bangladesh phone number"),
+  role: z.enum(["customer", "technician", "seller"]).default("customer"),
   password: z.string().min(8),
   confirmPassword: z.string(),
 }).refine((value) => value.password === value.confirmPassword, { path: ["confirmPassword"], message: "Passwords do not match" });

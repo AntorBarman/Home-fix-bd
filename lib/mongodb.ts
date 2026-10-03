@@ -3,7 +3,7 @@ import "server-only";
 import { Collection, Db, Document, MongoClient } from "mongodb";
 import type {
   Booking, Category, Complaint, Coupon, Customer, Order, Post, ProblemReport,
-  Product, ReviewDoc, Service, StoreSettings, Technician, User, Warranty,
+  Product, ReviewDoc, Seller, Service, StoreSettings, Technician, User, Warranty,
 } from "@/types";
 
 const uri = process.env.MONGO_URI;
@@ -34,6 +34,7 @@ export const products = () => collection<Product>("products");
 export const categories = () => collection<Category>("categories");
 export const services = () => collection<Service>("services");
 export const technicians = () => collection<Technician>("technicians");
+export const sellers = () => collection<Seller>("sellers");
 export const orders = () => collection<Order>("orders");
 export const bookings = () => collection<Booking>("bookings");
 export const coupons = () => collection<Coupon>("coupons");
@@ -44,3 +45,5 @@ export const settings = () => collection<StoreSettings>("settings");
 export const warranties = () => collection<Warranty>("warranties");
 export const complaints = () => collection<Complaint>("complaints");
 export const problemReports = () => collection<ProblemReport>("problemReports");
+export const messages = () => collection<Record<string, unknown>>("messages");
+export const newsletter = () => collection<{ email: string; createdAt: string }>("newsletter");

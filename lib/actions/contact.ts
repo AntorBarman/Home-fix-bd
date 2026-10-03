@@ -1,0 +1,5 @@
+"use server";
+import { messages, newsletter } from "@/lib/mongodb";
+import { contactSchema, newsletterSchema } from "@/lib/schemas/contact";
+export async function contactAction(formData: FormData) { const parsed = contactSchema.safeParse(Object.fromEntries(formData)); if (!parsed.success) return { error: "Please check the form.", fieldErrors: parsed.error.flatten().fieldErrors }; await (await messages()).insertOne({ id: crypto.randomUUID(), type: "contact", ...parsed.data, createdAt: new Date().toISOString() }); return { success: true }; }
+export async function subscribeNewsletterAction(formData: FormData) { const parsed = newsletterSchema.safeParse(Object.fromEntries(formData)); if (!parsed.success) return { error: "Enter a valid email." }; const collection = await newsletter(); if (await collection.findOne({ email: parsed.data.email.toLowerCase() })) return { alreadySubscribed: true }; await collection.insertOne({ email: parsed.data.email.toLowerCase(), createdAt: new Date().toISOString() }); return { success: true }; }
