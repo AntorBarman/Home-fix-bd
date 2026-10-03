@@ -1,0 +1,307 @@
+{
+  "technicians": [
+    {
+      "id": "tech-001",
+      "userId": "user-tech-001",
+      "name": "Md. Rakib Hasan",
+      "nameBn": "মোঃ রাকিব হাসান",
+      "phone": "01711000001",
+      "photo": "/homefix-bd/technicians/tech-001.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 6,
+      "skills": [
+        { "serviceSlug": "electrical", "level": "senior", "yearsExperience": 6 }
+      ],
+      "serviceAreas": ["dhanmondi", "mirpur", "mohammadpur"],
+      "rating": 4.8,
+      "completedJobs": 142,
+      "reviews": [],
+      "visitCharge": 200,
+      "availability": [
+        { "day": "sat", "slots": ["10:00-14:00", "16:00-20:00"] },
+        { "day": "sun", "slots": ["10:00-14:00"] },
+        { "day": "mon", "slots": ["10:00-14:00", "16:00-20:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-002",
+      "userId": "user-tech-002",
+      "name": "Abdul Karim",
+      "nameBn": "আব্দুল করিম",
+      "phone": "01711000002",
+      "photo": "/homefix-bd/technicians/tech-002.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 8,
+      "skills": [
+        { "serviceSlug": "plumbing", "level": "senior", "yearsExperience": 8 }
+      ],
+      "serviceAreas": ["dhanmondi", "gulshan", "uttara"],
+      "rating": 4.9,
+      "completedJobs": 210,
+      "reviews": [],
+      "visitCharge": 250,
+      "availability": [
+        { "day": "sat", "slots": ["09:00-13:00"] },
+        { "day": "mon", "slots": ["09:00-13:00", "15:00-19:00"] },
+        { "day": "wed", "slots": ["09:00-13:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-003",
+      "userId": "user-tech-003",
+      "name": "Sumon Mia",
+      "nameBn": "সুমন মিয়া",
+      "phone": "01711000003",
+      "photo": "/homefix-bd/technicians/tech-003.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 4,
+      "skills": [
+        { "serviceSlug": "sanitary", "level": "mid", "yearsExperience": 4 }
+      ],
+      "serviceAreas": ["mirpur", "mohammadpur"],
+      "rating": 4.6,
+      "completedJobs": 87,
+      "reviews": [],
+      "visitCharge": 200,
+      "availability": [
+        { "day": "sun", "slots": ["10:00-18:00"] },
+        { "day": "tue", "slots": ["10:00-18:00"] },
+        { "day": "thu", "slots": ["10:00-18:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-004",
+      "userId": "user-tech-004",
+      "name": "Jahangir Alam",
+      "nameBn": "জাহাঙ্গীর আলম",
+      "phone": "01711000004",
+      "photo": "/homefix-bd/technicians/tech-004.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 10,
+      "skills": [
+        { "serviceSlug": "ac", "level": "senior", "yearsExperience": 10 }
+      ],
+      "serviceAreas": ["gulshan", "banani", "uttara"],
+      "rating": 4.9,
+      "completedJobs": 320,
+      "reviews": [],
+      "visitCharge": 400,
+      "availability": [
+        { "day": "sat", "slots": ["08:00-20:00"] },
+        { "day": "mon", "slots": ["08:00-20:00"] },
+        { "day": "wed", "slots": ["08:00-20:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-005",
+      "userId": "user-tech-005",
+      "name": "Kamal Uddin",
+      "nameBn": "কামাল উদ্দিন",
+      "phone": "01711000005",
+      "photo": "/homefix-bd/technicians/tech-005.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 7,
+      "skills": [
+        { "serviceSlug": "refrigerator", "level": "senior", "yearsExperience": 7 }
+      ],
+      "serviceAreas": ["dhanmondi", "mirpur"],
+      "rating": 4.7,
+      "completedJobs": 165,
+      "reviews": [],
+      "visitCharge": 300,
+      "availability": [
+        { "day": "sun", "slots": ["09:00-17:00"] },
+        { "day": "tue", "slots": ["09:00-17:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-006",
+      "userId": "user-tech-006",
+      "name": "Rafiq Islam",
+      "nameBn": "রফিক ইসলাম",
+      "phone": "01711000006",
+      "photo": "/homefix-bd/technicians/tech-006.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 5,
+      "skills": [
+        { "serviceSlug": "tv", "level": "mid", "yearsExperience": 5 }
+      ],
+      "serviceAreas": ["uttara", "airport"],
+      "rating": 4.5,
+      "completedJobs": 98,
+      "reviews": [],
+      "visitCharge": 250,
+      "availability": [
+        { "day": "sat", "slots": ["10:00-18:00"] },
+        { "day": "thu", "slots": ["10:00-18:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-007",
+      "userId": "user-tech-007",
+      "name": "Shahin Ahmed",
+      "nameBn": "শাহিন আহমেদ",
+      "phone": "01711000007",
+      "photo": "/homefix-bd/technicians/tech-007.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 9,
+      "skills": [
+        { "serviceSlug": "home-maintenance", "level": "senior", "yearsExperience": 9 }
+      ],
+      "serviceAreas": ["dhanmondi", "gulshan", "banani", "mirpur"],
+      "rating": 4.8,
+      "completedJobs": 245,
+      "reviews": [],
+      "visitCharge": 300,
+      "availability": [
+        { "day": "sat", "slots": ["09:00-17:00"] },
+        { "day": "mon", "slots": ["09:00-17:00"] },
+        { "day": "wed", "slots": ["09:00-17:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-008",
+      "userId": "user-tech-008",
+      "name": "Nazrul Islam",
+      "nameBn": "নজরুল ইসলাম",
+      "phone": "01711000008",
+      "photo": "/homefix-bd/technicians/tech-008.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 6,
+      "skills": [
+        { "serviceSlug": "painting", "level": "senior", "yearsExperience": 6 }
+      ],
+      "serviceAreas": ["mirpur", "mohammadpur", "dhanmondi"],
+      "rating": 4.6,
+      "completedJobs": 132,
+      "reviews": [],
+      "visitCharge": 250,
+      "availability": [
+        { "day": "sun", "slots": ["08:00-16:00"] },
+        { "day": "tue", "slots": ["08:00-16:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-009",
+      "userId": "user-tech-009",
+      "name": "Habibur Rahman",
+      "nameBn": "হাবিবুর রহমান",
+      "phone": "01711000009",
+      "photo": "/homefix-bd/technicians/tech-009.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 12,
+      "skills": [
+        { "serviceSlug": "carpentry", "level": "senior", "yearsExperience": 12 }
+      ],
+      "serviceAreas": ["dhanmondi", "gulshan", "banani"],
+      "rating": 5.0,
+      "completedJobs": 380,
+      "reviews": [],
+      "visitCharge": 350,
+      "availability": [
+        { "day": "sat", "slots": ["09:00-18:00"] },
+        { "day": "mon", "slots": ["09:00-18:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-010",
+      "userId": "user-tech-010",
+      "name": "Anwar Hossain",
+      "nameBn": "আনোয়ার হোসেন",
+      "phone": "01711000010",
+      "photo": "/homefix-bd/technicians/tech-010.webp",
+      "verified": false,
+      "verificationStatus": "pending",
+      "experienceYears": 3,
+      "skills": [
+        { "serviceSlug": "cctv", "level": "mid", "yearsExperience": 3 }
+      ],
+      "serviceAreas": ["uttara", "airport"],
+      "rating": 4.3,
+      "completedJobs": 42,
+      "reviews": [],
+      "visitCharge": 300,
+      "availability": [
+        { "day": "sun", "slots": ["10:00-18:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-011",
+      "userId": "user-tech-011",
+      "name": "Mizanur Rahman",
+      "nameBn": "মিজানুর রহমান",
+      "phone": "01711000011",
+      "photo": "/homefix-bd/technicians/tech-011.webp",
+      "verified": false,
+      "verificationStatus": "under_review",
+      "experienceYears": 4,
+      "skills": [
+        { "serviceSlug": "network", "level": "mid", "yearsExperience": 4 }
+      ],
+      "serviceAreas": ["gulshan", "banani"],
+      "rating": 4.4,
+      "completedJobs": 58,
+      "reviews": [],
+      "visitCharge": 350,
+      "availability": [
+        { "day": "sat", "slots": ["10:00-18:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    },
+    {
+      "id": "tech-012",
+      "userId": "user-tech-012",
+      "name": "Sohel Rana",
+      "nameBn": "সোহেল রানা",
+      "phone": "01711000012",
+      "photo": "/homefix-bd/technicians/tech-012.webp",
+      "verified": true,
+      "verificationStatus": "verified",
+      "experienceYears": 5,
+      "skills": [
+        { "serviceSlug": "appliance-install", "level": "mid", "yearsExperience": 5 }
+      ],
+      "serviceAreas": ["dhanmondi", "mirpur", "uttara"],
+      "rating": 4.7,
+      "completedJobs": 105,
+      "reviews": [],
+      "visitCharge": 250,
+      "availability": [
+        { "day": "sun", "slots": ["09:00-17:00"] },
+        { "day": "wed", "slots": ["09:00-17:00"] }
+      ],
+      "walletBalance": 0,
+      "active": true
+    }
+  ]
+}

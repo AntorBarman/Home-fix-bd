@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { Storefront } from "@/components/storefront";
+export default function NotFound() { return <Storefront><main className="mx-auto flex min-h-[55vh] max-w-3xl flex-col items-start justify-center px-4 py-16 sm:px-6"><p className="text-xs uppercase tracking-[.2em] text-sale">404 · Not found</p><h1 className="display mt-4 text-6xl font-semibold">এই ঘরটি খুঁজে পাওয়া গেল না।</h1><p className="mt-5 text-foreground/60">লিংকটি হয়তো বদলে গেছে। অন্য কিছু দেখে নিন।</p><Link href="/" className="mt-8 bg-foreground px-5 py-3 text-sm font-semibold text-background">ফিরে যান</Link></main></Storefront>; }
