@@ -1,14 +1,218 @@
 [
-{"slug":"ceiling-fan-installation","name":"Ceiling Fan Installation","nameBn":"সিলিং ফ্যান ইনস্টলেশন","category":"electrical","description":"সঠিক ব্যালান্স ও নিরাপদ সংযোগে ফ্যান লাগানো।","priceFrom":450,"priceTo":900,"warrantyDays":7,"icon":"◉"},
-{"slug":"electrical-safety-check","name":"Electrical Safety Check","nameBn":"ইলেকট্রিক্যাল সেফটি চেক","category":"electrical","description":"বাড়ির তার, বোর্ড ও সার্কিট ব্রেকারের পরীক্ষা।","priceFrom":600,"priceTo":1500,"warrantyDays":7,"icon":"⚡"},
-{"slug":"basin-tap-repair","name":"Basin & Tap Repair","nameBn":"বেসিন ও কল মেরামত","category":"plumbing","description":"লিক, পানি কম আসা ও কলের সমস্যা।","priceFrom":350,"priceTo":1200,"warrantyDays":7,"icon":"◒"},
-{"slug":"bathroom-fitting","name":"Bathroom Fitting","nameBn":"বাথরুম ফিটিং","category":"sanitary","description":"শাওয়ার, বেসিন ও আয়না বসানো।","priceFrom":700,"priceTo":2500,"warrantyDays":14,"icon":"◌"},
-{"slug":"ac-installation","name":"AC Installation & Service","nameBn":"এসি ইনস্টলেশন ও সার্ভিস","category":"ac","description":"ইনস্টল, গ্যাস চেক ও ফিল্টার পরিষ্কার।","priceFrom":800,"priceTo":2200,"warrantyDays":7,"icon":"❄"},
-{"slug":"refrigerator-repair","name":"Refrigerator Repair","nameBn":"রেফ্রিজারেটর মেরামত","category":"refrigerator","description":"ঠান্ডা না হওয়া, শব্দ বা বরফ জমার সমাধান।","priceFrom":500,"priceTo":1800,"warrantyDays":14,"icon":"▣"},
-{"slug":"tv-wall-mount","name":"TV Wall Mount","nameBn":"টিভি ওয়াল মাউন্ট","category":"tv","description":"দেয়ালের ধরন বুঝে নিরাপদে টিভি বসানো।","priceFrom":600,"priceTo":1200,"warrantyDays":7,"icon":"▤"},
-{"slug":"home-maintenance","name":"Home Maintenance Visit","nameBn":"হোম মেইনটেন্যান্স ভিজিট","category":"home-maintenance","description":"এক ভিজিটে ঘরের ছোটখাটো কাজের তালিকা।","priceFrom":500,"priceTo":1500,"warrantyDays":7,"icon":"⌂"},
-{"slug":"painting","name":"Room Painting","nameBn":"ঘর রং করা","category":"painting","description":"দেয়াল প্রস্তুত, রং ও পরিষ্কার-পরিচ্ছন্নতা।","priceFrom":2500,"priceTo":12000,"warrantyDays":30,"icon":"◈"},
-{"slug":"carpentry","name":"Carpentry Repair","nameBn":"কাঠের কাজ","category":"carpentry","description":"দরজা, ড্রয়ার ও ফার্নিচারের মেরামত।","priceFrom":500,"priceTo":3500,"warrantyDays":14,"icon":"⌁"},
-{"slug":"cctv-installation","name":"CCTV Installation","nameBn":"সিসিটিভি ইনস্টলেশন","category":"tv","description":"ক্যামেরা বসানো, তার টানা ও মোবাইল সেটআপ।","priceFrom":1200,"priceTo":4500,"warrantyDays":30,"icon":"◍"},
-{"slug":"appliance-installation","name":"Appliance Installation","nameBn":"অ্যাপ্লায়েন্স ইনস্টলেশন","category":"appliance-install","description":"নতুন যন্ত্র সঠিক জায়গায় সেটআপ।","priceFrom":500,"priceTo":1800,"warrantyDays":7,"icon":"⌑"}
+  {
+    "slug": "ceiling-fan-installation",
+    "name": "Ceiling Fan Installation",
+    "nameBn": "সিলিং ফ্যান ইনস্টলেশন",
+    "category": "electrical",
+    "description": "সঠিক ব্যালান্স ও নিরাপদ সংযোগে ফ্যান লাগানো।",
+    "priceFrom": 450,
+    "priceTo": 900,
+    "warrantyDays": 7,
+    "icon": "◉",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Ceiling+Fan+Installation",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Ceiling+Fan+Installation",
+      "https://placehold.co/800x800/f4ede6/111111?text=Ceiling+Fan+Installation+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Ceiling+Fan+Installation+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Ceiling+Fan+Installation+-+Hover"
+    ]
+  },
+  {
+    "slug": "electrical-safety-check",
+    "name": "Electrical Safety Check",
+    "nameBn": "ইলেকট্রিক্যাল সেফটি চেক",
+    "category": "electrical",
+    "description": "বাড়ির তার, বোর্ড ও সার্কিট ব্রেকারের পরীক্ষা।",
+    "priceFrom": 600,
+    "priceTo": 1500,
+    "warrantyDays": 7,
+    "icon": "⚡",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Electrical+Safety+Check",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Electrical+Safety+Check",
+      "https://placehold.co/800x800/f4ede6/111111?text=Electrical+Safety+Check+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Electrical+Safety+Check+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Electrical+Safety+Check+-+Hover"
+    ]
+  },
+  {
+    "slug": "basin-tap-repair",
+    "name": "Basin & Tap Repair",
+    "nameBn": "বেসিন ও কল মেরামত",
+    "category": "plumbing",
+    "description": "লিক, পানি কম আসা ও কলের সমস্যা।",
+    "priceFrom": 350,
+    "priceTo": 1200,
+    "warrantyDays": 7,
+    "icon": "◒",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Basin+%26+Tap+Repair",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Basin+%26+Tap+Repair",
+      "https://placehold.co/800x800/f4ede6/111111?text=Basin+%26+Tap+Repair+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Basin+%26+Tap+Repair+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Basin+%26+Tap+Repair+-+Hover"
+    ]
+  },
+  {
+    "slug": "bathroom-fitting",
+    "name": "Bathroom Fitting",
+    "nameBn": "বাথরুম ফিটিং",
+    "category": "sanitary",
+    "description": "শাওয়ার, বেসিন ও আয়না বসানো।",
+    "priceFrom": 700,
+    "priceTo": 2500,
+    "warrantyDays": 14,
+    "icon": "◌",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Bathroom+Fitting",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Bathroom+Fitting",
+      "https://placehold.co/800x800/f4ede6/111111?text=Bathroom+Fitting+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bathroom+Fitting+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bathroom+Fitting+-+Hover"
+    ]
+  },
+  {
+    "slug": "ac-installation",
+    "name": "AC Installation & Service",
+    "nameBn": "এসি ইনস্টলেশন ও সার্ভিস",
+    "category": "ac",
+    "description": "ইনস্টল, গ্যাস চেক ও ফিল্টার পরিষ্কার।",
+    "priceFrom": 800,
+    "priceTo": 2200,
+    "warrantyDays": 7,
+    "icon": "❄",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=AC+Installation+%26+Service",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=AC+Installation+%26+Service",
+      "https://placehold.co/800x800/f4ede6/111111?text=AC+Installation+%26+Service+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=AC+Installation+%26+Service+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=AC+Installation+%26+Service+-+Hover"
+    ]
+  },
+  {
+    "slug": "refrigerator-repair",
+    "name": "Refrigerator Repair",
+    "nameBn": "রেফ্রিজারেটর মেরামত",
+    "category": "refrigerator",
+    "description": "ঠান্ডা না হওয়া, শব্দ বা বরফ জমার সমাধান।",
+    "priceFrom": 500,
+    "priceTo": 1800,
+    "warrantyDays": 14,
+    "icon": "▣",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Refrigerator+Repair",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Refrigerator+Repair",
+      "https://placehold.co/800x800/f4ede6/111111?text=Refrigerator+Repair+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Refrigerator+Repair+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Refrigerator+Repair+-+Hover"
+    ]
+  },
+  {
+    "slug": "tv-wall-mount",
+    "name": "TV Wall Mount",
+    "nameBn": "টিভি ওয়াল মাউন্ট",
+    "category": "tv",
+    "description": "দেয়ালের ধরন বুঝে নিরাপদে টিভি বসানো।",
+    "priceFrom": 600,
+    "priceTo": 1200,
+    "warrantyDays": 7,
+    "icon": "▤",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=TV+Wall+Mount",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=TV+Wall+Mount",
+      "https://placehold.co/800x800/f4ede6/111111?text=TV+Wall+Mount+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=TV+Wall+Mount+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=TV+Wall+Mount+-+Hover"
+    ]
+  },
+  {
+    "slug": "home-maintenance",
+    "name": "Home Maintenance Visit",
+    "nameBn": "হোম মেইনটেন্যান্স ভিজিট",
+    "category": "home-maintenance",
+    "description": "এক ভিজিটে ঘরের ছোটখাটো কাজের তালিকা।",
+    "priceFrom": 500,
+    "priceTo": 1500,
+    "warrantyDays": 7,
+    "icon": "⌂",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Home+Maintenance+Visit",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Home+Maintenance+Visit",
+      "https://placehold.co/800x800/f4ede6/111111?text=Home+Maintenance+Visit+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Home+Maintenance+Visit+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Home+Maintenance+Visit+-+Hover"
+    ]
+  },
+  {
+    "slug": "painting",
+    "name": "Room Painting",
+    "nameBn": "ঘর রং করা",
+    "category": "painting",
+    "description": "দেয়াল প্রস্তুত, রং ও পরিষ্কার-পরিচ্ছন্নতা।",
+    "priceFrom": 2500,
+    "priceTo": 12000,
+    "warrantyDays": 30,
+    "icon": "◈",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Room+Painting",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Room+Painting",
+      "https://placehold.co/800x800/f4ede6/111111?text=Room+Painting+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Room+Painting+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Room+Painting+-+Hover"
+    ]
+  },
+  {
+    "slug": "carpentry",
+    "name": "Carpentry Repair",
+    "nameBn": "কাঠের কাজ",
+    "category": "carpentry",
+    "description": "দরজা, ড্রয়ার ও ফার্নিচারের মেরামত।",
+    "priceFrom": 500,
+    "priceTo": 3500,
+    "warrantyDays": 14,
+    "icon": "⌁",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Carpentry+Repair",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Carpentry+Repair",
+      "https://placehold.co/800x800/f4ede6/111111?text=Carpentry+Repair+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Carpentry+Repair+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Carpentry+Repair+-+Hover"
+    ]
+  },
+  {
+    "slug": "cctv-installation",
+    "name": "CCTV Installation",
+    "nameBn": "সিসিটিভি ইনস্টলেশন",
+    "category": "tv",
+    "description": "ক্যামেরা বসানো, তার টানা ও মোবাইল সেটআপ।",
+    "priceFrom": 1200,
+    "priceTo": 4500,
+    "warrantyDays": 30,
+    "icon": "◍",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=CCTV+Installation",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=CCTV+Installation",
+      "https://placehold.co/800x800/f4ede6/111111?text=CCTV+Installation+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=CCTV+Installation+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=CCTV+Installation+-+Hover"
+    ]
+  },
+  {
+    "slug": "appliance-installation",
+    "name": "Appliance Installation",
+    "nameBn": "অ্যাপ্লায়েন্স ইনস্টলেশন",
+    "category": "appliance-install",
+    "description": "নতুন যন্ত্র সঠিক জায়গায় সেটআপ।",
+    "priceFrom": 500,
+    "priceTo": 1800,
+    "warrantyDays": 7,
+    "icon": "⌑",
+    "image": "https://placehold.co/800x800/f4ede6/111111?text=Appliance+Installation",
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Appliance+Installation",
+      "https://placehold.co/800x800/f4ede6/111111?text=Appliance+Installation+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Appliance+Installation+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Appliance+Installation+-+Hover"
+    ]
+  }
 ]

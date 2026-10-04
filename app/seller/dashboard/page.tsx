@@ -1,0 +1,15 @@
+import { requireSeller } from "@/lib/rbac";
+import { orders, products, sellers } from "@/lib/mongodb";
+import { KpiCard, EmptyState, StatusBadge } from "@/components/seller/seller-shell";
+
+export default async function SellerDashboard() {
+  const session = await requireSeller(); const seller = await (await sellers()).findOne({ userId: session.user.id }); const sellerId = seller?._id?.toString();
+  if (!sellerId) return <EmptyState>Seller profile is not available / বিক্রেতা প্রোফাইল পাওয়া যায়নি</EmptyState>;
+  const mine = await (await products()).find({ sellerId }).sort({ createdAt: -1 }).toArray(); const ids = new Set(mine.map((p) => p.id));
+  const all = await (await orders()).find({ paymentStatus: "paid", "items.productId": { $in: [...ids] } }).sort({ createdAt: -1 }).limit(10).toArray();
+  const revenue = all.reduce((sum, o) => sum + o.items.filter((i) => i.productId && ids.has(i.productId)).reduce((s, i) => s + i.unitPrice * i.qty, 0), 0);
+  const pending = all.filter((o) => !["shipped", "delivered", "cancelled", "returned"].includes(o.status)).length;
+  const topProducts = mine.slice(0, 5);
+  return <><h2 className="display text-4xl font-semibold">Dashboard / ড্যাশবোর্ড</h2><div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-5"><KpiCard label="Revenue / আয়" value={`৳${revenue.toLocaleString()}`} /><KpiCard label="Orders / অর্ডার" value={all.length} /><KpiCard label="Pending / অপেক্ষমাণ" value={pending} /><KpiCard label="Products / পণ্য" value={mine.length} /><KpiCard label="Low stock / কম স্টক" value={mine.filter((p) => p.stockQty <= 5).length} /></div><div className="mt-8 grid gap-8 lg:grid-cols-3"><section><h3 className="display text-2xl font-semibold">Recent orders / সাম্প্রতিক অর্ডার</h3><div className="mt-4 grid gap-3">{all.length ? all.map((o) => <LinkRow key={o.id} href={`/seller/orders/${o.id}`}><span>{o.orderNumber}</span><StatusBadge status={o.status} /><span>৳{o.total.toLocaleString()}</span></LinkRow>) : <EmptyState>No seller orders yet / কোনো অর্ডার নেই</EmptyState>}</div></section><section><h3 className="display text-2xl font-semibold">Low stock / কম স্টক</h3><div className="mt-4 grid gap-3">{mine.filter((p) => p.stockQty <= 5).length ? mine.filter((p) => p.stockQty <= 5).map((p) => <LinkRow key={p.id} href={`/seller/products/${p.id}`}><span>{p.name}</span><span>{p.stockQty} left</span></LinkRow>) : <EmptyState>All products are well stocked / পর্যাপ্ত স্টক আছে</EmptyState>}</div></section><section><h3 className="display text-2xl font-semibold">Top products / সেরা পণ্য</h3><div className="mt-4 grid gap-3">{topProducts.length ? topProducts.map((p) => <LinkRow key={p.id} href={`/seller/products/${p.id}`}><span>{p.name}</span><span>৳{p.price.toLocaleString()}</span></LinkRow>) : <EmptyState>No products yet / কোনো পণ্য নেই</EmptyState>}</div></section></div></>;
+}
+function LinkRow({ href, children }: { href: string; children: React.ReactNode }) { return <a href={href} className="flex items-center justify-between gap-3 border border-border p-4 text-sm hover:bg-muted">{children}</a>; }

@@ -1,0 +1,7 @@
+import { requireSeller } from "@/lib/rbac";
+import { orders, products, sellers } from "@/lib/mongodb";
+import { EmptyState, StatusBadge } from "@/components/seller/seller-shell";
+export default async function SellerReturns() {
+  const session = await requireSeller(); const seller = await (await sellers()).findOne({ userId: session.user.id }); const ids = seller?._id ? new Set((await (await products()).find({ sellerId: seller._id.toString() }).project({ id: 1 }).toArray()).map((p) => p.id)) : new Set<string>(); const list = await (await orders()).find({ status: "returned", "items.productId": { $in: [...ids] } }).toArray();
+  return <><h2 className="display text-4xl font-semibold">Returns / রিটার্ন</h2><div className="mt-6 grid gap-3">{list.map((o) => <article className="border border-border p-4" key={o.id}><div className="flex justify-between"><strong>{o.orderNumber}</strong><StatusBadge status="returned" /></div><p className="mt-2">{o.address.fullName} · {o.items.filter((i) => i.productId && ids.has(i.productId)).map((i) => i.name).join(", ")}</p><p className="mt-2 text-sm text-foreground/60">Return reason: customer request / গ্রাহকের অনুরোধ</p><div className="mt-3 flex gap-3"><button className="border border-border px-3 py-2 text-sm">Accept</button><button className="border border-border px-3 py-2 text-sm">Refuse</button></div></article>)}{!list.length && <EmptyState>No return requests / কোনো রিটার্ন নেই</EmptyState>}</div></>;
+}

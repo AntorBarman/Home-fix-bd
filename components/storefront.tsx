@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Check, Heart, Menu, Search, ShoppingBag, Sparkles, Star, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
@@ -13,8 +14,8 @@ const cartKey = "homefixbd-cart";
 export function ProductArt({ product, compact = false }: { product: Product; compact?: boolean }) {
   const tones: Record<string, string> = { electrical: "from-[#d8e6e0] to-[#f4ede6]", plumbing: "from-[#dce7e9] to-[#f4ede6]", sanitary: "from-[#eee5d7] to-[#fafaf8]", ac: "from-[#dbe6eb] to-[#f4ede6]", refrigerator: "from-[#e4e0d9] to-[#fafaf8]", tv: "from-[#ddd9e4] to-[#f4ede6]" };
   return <div className={`relative overflow-hidden rounded-[2px] bg-linear-to-br ${tones[product.category] ?? "from-muted to-background"} ${compact ? "h-36" : "h-72"}`}>
-    <div className="absolute inset-0 opacity-30 paper-grid" />
-    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-[76px] font-light text-foreground/75">{product.category === "electrical" ? "⌁" : product.category === "plumbing" ? "◒" : product.category === "ac" ? "❄" : product.category === "refrigerator" ? "▣" : product.category === "tv" ? "▤" : "◌"}</div>
+    <Image src={product.image} alt={product.name} fill unoptimized sizes={compact ? "240px" : "(max-width: 768px) 50vw, 25vw"} className="object-cover transition-opacity duration-300 group-hover:opacity-0" />
+    <Image src={product.hoverImage || product.image} alt="" fill unoptimized sizes={compact ? "240px" : "(max-width: 768px) 50vw, 25vw"} className="object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     <div className="absolute bottom-3 left-3 rounded-full bg-background/80 px-2 py-1 text-[10px] uppercase tracking-[.18em]">{product.brand}</div>
   </div>;
 }
@@ -28,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
     const size = variant.sizes[0].size;
     const index = cart.findIndex((line) => line.productId === product.id && line.color === variant.color && line.size === size);
     if (index >= 0) cart[index].qty += 1;
-    else cart.push({ productId: product.id, slug: product.slug, name: product.name, image: product.image, color: variant.color, size, qty: 1, addInstallation: false });
+    else cart.push({ productId: product.id, slug: product.slug, name: product.name, image: variant.image || product.images?.[0] || product.image, color: variant.color, size, qty: 1, addInstallation: false });
     localStorage.setItem(cartKey, JSON.stringify(cart));
     window.dispatchEvent(new Event("cart-change"));
     setAdded(true);
@@ -54,6 +55,8 @@ export function Header() {
   const [count, setCount] = useState(0);
   const [menu, setMenu] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const { data: session } = useSession();
   const role = session?.user?.role;
   const firstName = session?.user?.name?.split(" ")[0] || "Account";
@@ -69,16 +72,46 @@ export function Header() {
     const sync = () => { const raw = localStorage.getItem(cartKey); setCount(raw ? (JSON.parse(raw) as { qty: number }[]).reduce((a, b) => a + b.qty, 0) : 0); };
     sync(); window.addEventListener("cart-change", sync); return () => window.removeEventListener("cart-change", sync);
   }, []);
-  return <header className="border-b border-border bg-background">
-    <div className="hidden border-b border-border bg-foreground px-4 py-2 text-center text-xs text-background md:block">বিশ্বস্ত মিস্ত্রি, এক ক্লিকেই · ৳৫০০০+ অর্ডারে ফ্রি ডেলিভারি · 9:00am – 9:00pm</div>
-    <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-5 sm:px-6">
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const updateDesktop = () => {
+      setIsDesktop(media.matches);
+      if (!media.matches) setCompact(false);
+    };
+    updateDesktop();
+    media.addEventListener("change", updateDesktop);
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        if (!media.matches) return;
+        const y = window.scrollY;
+        setCompact((previous) => {
+          if (!previous && y > 80) return true;
+          if (previous && y < 40) return false;
+          return previous;
+        });
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      media.removeEventListener("change", updateDesktop);
+      window.removeEventListener("scroll", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
+  const desktopCompact = isDesktop && compact;
+  return <header className={`relative sticky top-0 z-50 h-[72px] border-b border-border bg-background md:h-[156px] ${desktopCompact ? "shadow-sm" : ""}`}>
+    <div className={`absolute inset-x-0 top-0 hidden border-b border-border bg-foreground px-4 py-2 text-center text-xs text-background transition-[opacity,transform] duration-200 md:block ${desktopCompact ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}>বিশ্বস্ত মিস্ত্রি, এক ক্লিকেই · ৳৫০০০+ অর্ডারে ফ্রি ডেলিভারি · 9:00am – 9:00pm</div>
+    <div className={`absolute inset-x-0 top-0 mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 transition-[transform] duration-200 sm:px-6 md:top-8 md:py-5 ${desktopCompact ? "md:-translate-y-8" : ""}`}>
       <button aria-label="Open menu" onClick={() => setMenu(true)} className="md:hidden"><Menu /></button>
       <Link href="/" className="display text-2xl font-bold tracking-tight">HomeFix <span className="text-sale">BD</span></Link>
-      <div className="hidden flex-1 md:block"><div className="mx-auto flex max-w-xl items-center gap-2 border-b border-foreground/30 pb-2 text-sm text-foreground/55"><Search size={16} /> ঘরের জন্য কী খুঁজছেন?</div></div>
+      <form action="/shop" method="get" className="hidden flex-1 md:block"><div className="mx-auto flex max-w-xl items-center gap-2 border-b border-foreground/30 pb-2 text-sm text-foreground/55"><Search size={16} /><input type="search" name="q" placeholder="ঘরের জন্য কী খুঁজছেন?" aria-label="Search products" onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.value = ""; }} className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-foreground/55" /><button type="submit" aria-label="Submit search" className="text-foreground/60 hover:text-foreground"><Search size={16} /></button></div></form>
       <nav className="ml-auto flex items-center gap-3 text-sm"><Link href="/shop" className="hidden md:block">Shop</Link><Link href="/services" className="hidden md:block">Services</Link><Link href="/problem-solver" className="hidden sm:block">Problem solver</Link>{session ? <div className="relative hidden md:block"><button onClick={() => setAccountOpen((open) => !open)} className="min-h-10 border border-border px-3 text-sm font-medium">{firstName}</button>{accountOpen && <div className="absolute right-0 top-12 z-40 grid min-w-48 gap-1 border border-border bg-background p-2 shadow-lg">{accountLinks.filter((item) => item.visible).map((item) => <Link key={item.href} href={item.href} onClick={() => setAccountOpen(false)} className="px-3 py-2 text-sm hover:bg-muted">{item.label}</Link>)}<button onClick={() => signOut({ callbackUrl: "/" })} className="border-t border-border px-3 py-2 text-left text-sm hover:bg-muted">Sign out</button></div>}</div> : <Link href="/signin" className="hidden min-h-10 items-center px-2 font-medium md:flex">Sign In</Link>}<Link href="/cart" className="relative flex items-center gap-1"><ShoppingBag size={19} /><span className="text-xs">{count}</span></Link></nav>
     </div>
-    <div className="hidden border-t border-border md:block"><nav className="mx-auto flex max-w-[1400px] items-center gap-7 px-4 py-3 text-sm sm:px-6"><Link href="/categories" className="font-semibold">Shop by categories</Link><Link href="/technicians">Technicians</Link><Link href="/blog">Journal</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link><span className="ml-auto text-xs text-foreground/50">Dhaka · Mirpur · Uttara · Gulshan</span></nav></div>
-    {menu && <div className="fixed inset-0 z-50 bg-background p-5 md:hidden"><div className="flex items-center justify-between"><span className="display text-2xl font-bold">HomeFix <span className="text-sale">BD</span></span><button onClick={() => setMenu(false)} aria-label="Close menu"><X /></button></div><div className="mt-8 grid gap-5 text-2xl font-medium">{session ? <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><p className="display text-2xl">Hi, {firstName}</p>{accountLinks.filter((item) => item.visible).map((item) => <Link key={item.href} href={item.href} onClick={() => setMenu(false)}>{item.label}</Link>)}<button onClick={() => signOut({ callbackUrl: "/" })} className="text-left text-sale">Sign out</button></div> : <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><Link href="/signin" onClick={() => setMenu(false)}>Sign In</Link><Link href="/register" onClick={() => setMenu(false)} className="text-sale">Sign Up</Link></div>}<Link href="/shop" onClick={() => setMenu(false)}>Shop</Link><Link href="/services" onClick={() => setMenu(false)}>Services</Link><Link href="/technicians" onClick={() => setMenu(false)}>Technicians</Link><Link href="/problem-solver" onClick={() => setMenu(false)}>Problem solver</Link><Link href="/blog" onClick={() => setMenu(false)}>Journal</Link></div></div>}
+    <div className={`absolute inset-x-0 bottom-0 hidden border-t border-border transition-[opacity,transform] duration-200 md:block ${desktopCompact ? "translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}><nav className="mx-auto flex max-w-[1400px] items-center gap-7 px-4 py-3 text-sm sm:px-6"><Link href="/categories" className="font-semibold">Shop by categories</Link><Link href="/technicians">Technicians</Link><Link href="/blog">Journal</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link><span className="ml-auto text-xs text-foreground/50">Dhaka · Mirpur · Uttara · Gulshan</span></nav></div>
+    {menu && <div className="fixed inset-0 z-50 bg-background p-5 md:hidden"><div className="flex items-center justify-between"><span className="display text-2xl font-bold">HomeFix <span className="text-sale">BD</span></span><button onClick={() => setMenu(false)} aria-label="Close menu"><X /></button></div><form action="/shop" method="get" className="mt-8 flex items-center gap-2 border-b border-foreground/30 pb-3"><Search size={18} /><input type="search" name="q" placeholder="ঘরের জন্য কী খুঁজছেন?" aria-label="Search products" onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.value = ""; }} className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-foreground/55" /><button type="submit" aria-label="Submit search"><Search size={18} /></button></form><div className="mt-8 grid gap-5 text-2xl font-medium">{session ? <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><p className="display text-2xl">Hi, {firstName}</p>{accountLinks.filter((item) => item.visible).map((item) => <Link key={item.href} href={item.href} onClick={() => setMenu(false)}>{item.label}</Link>)}<button onClick={() => signOut({ callbackUrl: "/" })} className="text-left text-sale">Sign out</button></div> : <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><Link href="/signin" onClick={() => setMenu(false)}>Sign In</Link><Link href="/register" onClick={() => setMenu(false)} className="text-sale">Sign Up</Link></div>}<Link href="/shop" onClick={() => setMenu(false)}>Shop</Link><Link href="/services" onClick={() => setMenu(false)}>Services</Link><Link href="/technicians" onClick={() => setMenu(false)}>Technicians</Link><Link href="/problem-solver" onClick={() => setMenu(false)}>Problem solver</Link><Link href="/blog" onClick={() => setMenu(false)}>Journal</Link></div></div>}
   </header>;
 }
 
@@ -88,7 +121,8 @@ export function Footer() {
 
 export function Dock() { return <aside className="fixed right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 lg:flex"><Link href="/cart" className="rounded-full bg-foreground px-4 py-3 text-xs font-semibold text-background shadow-lg">Bag</Link><Link href="/wishlist" className="rounded-full border border-border bg-background px-4 py-3 text-xs font-semibold shadow-lg">Wishlist</Link><Link href="/booking/new" className="rounded-full bg-sale px-4 py-3 text-xs font-semibold text-white shadow-lg">Book a tech</Link></aside>; }
 
-export function Storefront({ children }: { children: React.ReactNode }) { return <><Header />{children}<Dock /><Footer /></>; }
+export function StorefrontShell({ children }: { children: React.ReactNode }) { return <><Header />{children}<Dock /><Footer /></>; }
+export function Storefront({ children }: { children: React.ReactNode }) { return <>{children}</>; }
 
 export function ProductGrid({ items }: { items: Product[] }) { return <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">{items.map((product) => <ProductCard key={product.id} product={product} />)}</div>; }
 

@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@media (prefers-reduced-motion: reduce) {
+  header,
+  header * {
+    transition: none !important;
+  }
+}
+
 :root {
   --background: #fafaf8;
   --foreground: #111111;
@@ -38,6 +45,12 @@ body {
   color: var(--foreground);
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   margin: 0;
+}
+
+/* Keep the paper foreground explicit for dark brand surfaces. */
+.text-background,
+.text-accent-foreground {
+  color: #fafaf8 !important;
 }
 
 a {

@@ -1,14 +1,698 @@
 [
-  {"id":"p1","slug":"nilkontho-ceiling-fan-56","name":"Nilkontho Ceiling Fan 56","nameBn":"নীলকণ্ঠ সিলিং ফ্যান ৫৬","description":"নীরব মোটর, ঘরের বাতাসে আরাম।","category":"electrical","brand":"Nilkontho","price":4800,"compareAtPrice":5600,"image":"/homefix-bd/products/fan.svg","hoverImage":"/homefix-bd/products/fan-detail.svg","variants":[{"color":"Bone","colorHex":"#ded5c8","sizes":[{"size":"56 inch","qty":12}],"image":"/homefix-bd/products/fan.svg"},{"color":"Ink","colorHex":"#252525","sizes":[{"size":"56 inch","qty":4}],"image":"/homefix-bd/products/fan-dark.svg"}],"rating":4.8,"reviewCount":24,"featured":true,"badge":"sale","stockQty":16,"inStock":true,"installable":true,"installServiceSlug":"ceiling-fan-installation","features":["Copper motor","৫ বছরের সার্ভিস ওয়ারেন্টি"]},
-  {"id":"p2","slug":"bhor-32a-mcb","name":"Bhor 32A MCB Single Pole","nameBn":"ভোর ৩২এ এমসিবি","description":"ওভারলোড থেকে আপনার ঘরকে নিরাপদ রাখে।","category":"electrical","brand":"Bhor","price":380,"image":"/homefix-bd/products/mcb.svg","hoverImage":"/homefix-bd/products/mcb.svg","variants":[{"color":"White","colorHex":"#fff","sizes":[{"size":"32A","qty":28}],"image":"/homefix-bd/products/mcb.svg"},{"color":"Steel","colorHex":"#89929b","sizes":[{"size":"32A","qty":0}],"image":"/homefix-bd/products/mcb.svg"}],"rating":4.6,"reviewCount":18,"featured":true,"badge":"new","stockQty":28,"inStock":true,"installable":true,"installServiceSlug":"electrical-safety-check","features":["Fire resistant","ISI-grade contacts"]},
-  {"id":"p3","slug":"shonali-led-bulb-12w","name":"Shonali LED Bulb 12W","nameBn":"সোনালি এলইডি বাল্ব ১২ওয়াট","description":"নরম আলো, কম বিদ্যুৎ খরচ।","category":"electrical","brand":"Shonali","price":120,"compareAtPrice":160,"image":"/homefix-bd/products/bulb.svg","hoverImage":"/homefix-bd/products/bulb.svg","variants":[{"color":"Warm","colorHex":"#f2bd55","sizes":[{"size":"12W","qty":42}],"image":"/homefix-bd/products/bulb.svg"},{"color":"Cool","colorHex":"#d9efff","sizes":[{"size":"12W","qty":18}],"image":"/homefix-bd/products/bulb.svg"}],"rating":4.5,"reviewCount":31,"badge":"sale","stockQty":60,"inStock":true,"installable":false,"features":["800 lumens","১ বছরের ওয়ারেন্টি"]},
-  {"id":"p4","slug":"rupkotha-chrome-basin-tap","name":"Rupkotha Chrome Basin Tap","nameBn":"রূপকথা ক্রোম বেসিন ট্যাপ","description":"মসৃণ ধাতব ফিনিশ, পানি সাশ্রয়ী মুখ।","category":"plumbing","brand":"Rupkotha","price":1850,"image":"/homefix-bd/products/tap.svg","hoverImage":"/homefix-bd/products/tap-detail.svg","variants":[{"color":"Chrome","colorHex":"#b7bec2","sizes":[{"size":"Standard","qty":9}],"image":"/homefix-bd/products/tap.svg"},{"color":"Ink","colorHex":"#262626","sizes":[{"size":"Standard","qty":6}],"image":"/homefix-bd/products/tap-dark.svg"}],"rating":4.7,"reviewCount":19,"featured":true,"installable":true,"installServiceSlug":"basin-tap-repair","features":["Brass body","১০ বছরের লিক-গ্যারান্টি"]},
-  {"id":"p5","slug":"meghla-flexible-shower","name":"Meghla Flexible Shower Set","nameBn":"মেঘলা ফ্লেক্সিবল শাওয়ার সেট","description":"দৈনন্দিন গোসলের জন্য টেকসই সেট।","category":"sanitary","brand":"Meghla","price":1450,"image":"/homefix-bd/products/shower.svg","hoverImage":"/homefix-bd/products/shower.svg","variants":[{"color":"Steel","colorHex":"#9ba3a8","sizes":[{"size":"1.5m","qty":14}],"image":"/homefix-bd/products/shower.svg"},{"color":"Bone","colorHex":"#ded5c8","sizes":[{"size":"1.5m","qty":0}],"image":"/homefix-bd/products/shower.svg"}],"rating":4.4,"reviewCount":12,"installable":true,"installServiceSlug":"bathroom-fitting","features":["Anti-rust steel","Easy clean head"]},
-  {"id":"p6","slug":"probhat-inverter-ac","name":"Probhat 1.5 Ton Inverter AC","nameBn":"প্রভাত ১.৫ টন ইনভার্টার এসি","description":"গরম দুপুরে দ্রুত ঠান্ডা, বিদ্যুৎ সাশ্রয়ী।","category":"ac","brand":"Probhat","price":48000,"compareAtPrice":55000,"image":"/homefix-bd/products/ac.svg","hoverImage":"/homefix-bd/products/ac-detail.svg","variants":[{"color":"White","colorHex":"#fff","sizes":[{"size":"1.5 Ton","qty":3}],"image":"/homefix-bd/products/ac.svg"},{"color":"Ivory","colorHex":"#e8e1d4","sizes":[{"size":"1.5 Ton","qty":2}],"image":"/homefix-bd/products/ac.svg"}],"rating":4.9,"reviewCount":42,"featured":true,"badge":"hot","stockQty":5,"inStock":true,"installable":true,"installServiceSlug":"ac-installation","features":["Inverter compressor","৫ বছরের কম্প্রেসর ওয়ারেন্টি"]},
-  {"id":"p7","slug":"tara-air-purifier","name":"Tara Room Air Purifier","nameBn":"তারা রুম এয়ার পিউরিফায়ার","description":"শোবার ঘরের বাতাসকে রাখে স্বস্তির।","category":"ac","brand":"Tara","price":9200,"image":"/homefix-bd/products/purifier.svg","hoverImage":"/homefix-bd/products/purifier.svg","variants":[{"color":"Bone","colorHex":"#ded5c8","sizes":[{"size":"Medium","qty":7}],"image":"/homefix-bd/products/purifier.svg"},{"color":"Ink","colorHex":"#252525","sizes":[{"size":"Medium","qty":3}],"image":"/homefix-bd/products/purifier-dark.svg"}],"rating":4.3,"reviewCount":9,"badge":"new","stockQty":10,"inStock":true,"installable":false,"features":["Quiet night mode","Washable filter"]},
-  {"id":"p8","slug":"chhaya-chest-freezer","name":"Chhaya Chest Freezer 180L","nameBn":"ছায়া চেস্ট ফ্রিজার ১৮০ লিটার","description":"বাড়ির রান্নাঘর ও ছোট ব্যবসার জন্য।","category":"refrigerator","brand":"Chhaya","price":32000,"image":"/homefix-bd/products/freezer.svg","hoverImage":"/homefix-bd/products/freezer.svg","variants":[{"color":"White","colorHex":"#fff","sizes":[{"size":"180L","qty":4}],"image":"/homefix-bd/products/freezer.svg"},{"color":"Steel","colorHex":"#9ba3a8","sizes":[{"size":"180L","qty":2}],"image":"/homefix-bd/products/freezer.svg"}],"rating":4.6,"reviewCount":15,"featured":true,"installable":true,"installServiceSlug":"appliance-installation","features":["Low frost","৩ বছরের ওয়ারেন্টি"]},
-  {"id":"p9","slug":"meghla-4-channel-cctv-kit","name":"Meghla CCTV 4-Channel Kit","nameBn":"মেঘলা ৪-চ্যানেল সিসিটিভি কিট","description":"দরজা, ছাদ ও দোকানের নজরদারি।","category":"tv","brand":"Meghla","price":12500,"image":"/homefix-bd/products/cctv.svg","hoverImage":"/homefix-bd/products/cctv.svg","variants":[{"color":"White","colorHex":"#fff","sizes":[{"size":"4 Camera","qty":8}],"image":"/homefix-bd/products/cctv.svg"},{"color":"Ink","colorHex":"#252525","sizes":[{"size":"4 Camera","qty":4}],"image":"/homefix-bd/products/cctv.svg"}],"rating":4.5,"reviewCount":16,"badge":"hot","stockQty":12,"inStock":true,"installable":true,"installServiceSlug":"cctv-installation","features":["Night vision","Mobile alerts"]},
-  {"id":"p10","slug":"nilkontho-wall-light","name":"Nilkontho Courtyard Wall Light","nameBn":"নীলকণ্ঠ উঠোনের ওয়াল লাইট","description":"বাইরের দেয়ালে নরম, উষ্ণ আলো।","category":"electrical","brand":"Nilkontho","price":780,"image":"/homefix-bd/products/light.svg","hoverImage":"/homefix-bd/products/light.svg","variants":[{"color":"Bone","colorHex":"#ded5c8","sizes":[{"size":"Standard","qty":22}],"image":"/homefix-bd/products/light.svg"},{"color":"Ink","colorHex":"#252525","sizes":[{"size":"Standard","qty":11}],"image":"/homefix-bd/products/light.svg"}],"rating":4.2,"reviewCount":8,"installable":true,"installServiceSlug":"electrical-safety-check","features":["Weather resistant","Warm LED"]},
-  {"id":"p11","slug":"bhora-pipe-repair-kit","name":"Bhor Pipe Repair Kit","nameBn":"ভোর পাইপ রিপেয়ার কিট","description":"ছোটখাটো লিক নিজেই সামলান।","category":"plumbing","brand":"Bhor","price":260,"image":"/homefix-bd/products/kit.svg","hoverImage":"/homefix-bd/products/kit.svg","variants":[{"color":"Steel","colorHex":"#9ba3a8","sizes":[{"size":"12 piece","qty":35}],"image":"/homefix-bd/products/kit.svg"},{"color":"Bone","colorHex":"#ded5c8","sizes":[{"size":"12 piece","qty":10}],"image":"/homefix-bd/products/kit.svg"}],"rating":4.1,"reviewCount":7,"installable":false,"features":["PTFE tape","Two couplers"]},
-  {"id":"p12","slug":"rupkotha-mirror-cabinet","name":"Rupkotha Mirror Cabinet","nameBn":"রূপকথা মিরর ক্যাবিনেট","description":"বাথরুমে গুছিয়ে রাখার শান্ত সমাধান।","category":"sanitary","brand":"Rupkotha","price":6200,"image":"/homefix-bd/products/cabinet.svg","hoverImage":"/homefix-bd/products/cabinet.svg","variants":[{"color":"Ivory","colorHex":"#e8e1d4","sizes":[{"size":"60cm","qty":6}],"image":"/homefix-bd/products/cabinet.svg"},{"color":"Ink","colorHex":"#252525","sizes":[{"size":"60cm","qty":2}],"image":"/homefix-bd/products/cabinet.svg"}],"rating":4.6,"reviewCount":11,"featured":true,"installable":true,"installServiceSlug":"bathroom-fitting","features":["Moisture proof","Soft-close door"]}
+  {
+    "id": "p1",
+    "slug": "nilkontho-ceiling-fan-56",
+    "name": "Nilkontho Ceiling Fan 56",
+    "nameBn": "নীলকণ্ঠ সিলিং ফ্যান ৫৬",
+    "description": "নীরব মোটর, ঘরের বাতাসে আরাম।",
+    "category": "electrical",
+    "brand": "Nilkontho",
+    "price": 4800,
+    "compareAtPrice": 5600,
+    "image": "/homefix-bd/products/nilkontho-ceiling-fan-56-1.webp",
+    "hoverImage": "/homefix-bd/products/nilkontho-ceiling-fan-56-4.webp",
+    "variants": [
+      {
+        "color": "Bone",
+        "colorHex": "#ded5c8",
+        "sizes": [
+          {
+            "size": "56 inch",
+            "qty": 12
+          }
+        ],
+        "image": "/homefix-bd/products/nilkontho-ceiling-fan-56-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#252525",
+        "sizes": [
+          {
+            "size": "56 inch",
+            "qty": 4
+          }
+        ],
+        "image": "/homefix-bd/products/nilkontho-ceiling-fan-56-2.webp"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 24,
+    "featured": true,
+    "badge": "sale",
+    "stockQty": 16,
+    "inStock": true,
+    "installable": true,
+    "installServiceSlug": "ceiling-fan-installation",
+    "features": [
+      "Copper motor",
+      "৫ বছরের সার্ভিস ওয়ারেন্টি"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Nilkontho+Ceiling+Fan+56",
+      "https://placehold.co/800x800/f4ede6/111111?text=Nilkontho+Ceiling+Fan+56+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Nilkontho+Ceiling+Fan+56+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Nilkontho+Ceiling+Fan+56+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/nilkontho-ceiling-fan-56-1.webp",
+      "/homefix-bd/products/nilkontho-ceiling-fan-56-2.webp",
+      "/homefix-bd/products/nilkontho-ceiling-fan-56-3.webp",
+      "/homefix-bd/products/nilkontho-ceiling-fan-56-4.webp"
+    ]
+  },
+  {
+    "id": "p2",
+    "slug": "bhor-32a-mcb",
+    "name": "Bhor 32A MCB Single Pole",
+    "nameBn": "ভোর ৩২এ এমসিবি",
+    "description": "ওভারলোড থেকে আপনার ঘরকে নিরাপদ রাখে।",
+    "category": "electrical",
+    "brand": "Bhor",
+    "price": 380,
+    "image": "/homefix-bd/products/bhor-32a-mcb-1.webp",
+    "hoverImage": "/homefix-bd/products/bhor-32a-mcb-4.webp",
+    "variants": [
+      {
+        "color": "White",
+        "colorHex": "#fff",
+        "sizes": [
+          {
+            "size": "32A",
+            "qty": 28
+          }
+        ],
+        "image": "/homefix-bd/products/bhor-32a-mcb-1.webp"
+      },
+      {
+        "color": "Steel",
+        "colorHex": "#89929b",
+        "sizes": [
+          {
+            "size": "32A",
+            "qty": 0
+          }
+        ],
+        "image": "/homefix-bd/products/bhor-32a-mcb-2.webp"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 18,
+    "featured": true,
+    "badge": "new",
+    "stockQty": 28,
+    "inStock": true,
+    "installable": true,
+    "installServiceSlug": "electrical-safety-check",
+    "features": [
+      "Fire resistant",
+      "ISI-grade contacts"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Bhor+32A+MCB+Single+Pole",
+      "https://placehold.co/800x800/f4ede6/111111?text=Bhor+32A+MCB+Single+Pole+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bhor+32A+MCB+Single+Pole+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bhor+32A+MCB+Single+Pole+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/bhor-32a-mcb-1.webp",
+      "/homefix-bd/products/bhor-32a-mcb-2.webp",
+      "/homefix-bd/products/bhor-32a-mcb-3.webp",
+      "/homefix-bd/products/bhor-32a-mcb-4.webp"
+    ]
+  },
+  {
+    "id": "p3",
+    "slug": "shonali-led-bulb-12w",
+    "name": "Shonali LED Bulb 12W",
+    "nameBn": "সোনালি এলইডি বাল্ব ১২ওয়াট",
+    "description": "নরম আলো, কম বিদ্যুৎ খরচ।",
+    "category": "electrical",
+    "brand": "Shonali",
+    "price": 120,
+    "compareAtPrice": 160,
+    "image": "/homefix-bd/products/shonali-led-bulb-12w-1.webp",
+    "hoverImage": "/homefix-bd/products/shonali-led-bulb-12w-4.webp",
+    "variants": [
+      {
+        "color": "Warm",
+        "colorHex": "#f2bd55",
+        "sizes": [
+          {
+            "size": "12W",
+            "qty": 42
+          }
+        ],
+        "image": "/homefix-bd/products/shonali-led-bulb-12w-1.webp"
+      },
+      {
+        "color": "Cool",
+        "colorHex": "#d9efff",
+        "sizes": [
+          {
+            "size": "12W",
+            "qty": 18
+          }
+        ],
+        "image": "/homefix-bd/products/shonali-led-bulb-12w-2.webp"
+      }
+    ],
+    "rating": 4.5,
+    "reviewCount": 31,
+    "badge": "sale",
+    "stockQty": 60,
+    "inStock": true,
+    "installable": false,
+    "features": [
+      "800 lumens",
+      "১ বছরের ওয়ারেন্টি"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Shonali+LED+Bulb+12W",
+      "https://placehold.co/800x800/f4ede6/111111?text=Shonali+LED+Bulb+12W+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Shonali+LED+Bulb+12W+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Shonali+LED+Bulb+12W+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/shonali-led-bulb-12w-1.webp",
+      "/homefix-bd/products/shonali-led-bulb-12w-2.webp",
+      "/homefix-bd/products/shonali-led-bulb-12w-3.webp",
+      "/homefix-bd/products/shonali-led-bulb-12w-4.webp"
+    ]
+  },
+  {
+    "id": "p4",
+    "slug": "rupkotha-chrome-basin-tap",
+    "name": "Rupkotha Chrome Basin Tap",
+    "nameBn": "রূপকথা ক্রোম বেসিন ট্যাপ",
+    "description": "মসৃণ ধাতব ফিনিশ, পানি সাশ্রয়ী মুখ।",
+    "category": "plumbing",
+    "brand": "Rupkotha",
+    "price": 1850,
+    "image": "/homefix-bd/products/rupkotha-chrome-basin-tap-1.webp",
+    "hoverImage": "/homefix-bd/products/rupkotha-chrome-basin-tap-4.webp",
+    "variants": [
+      {
+        "color": "Chrome",
+        "colorHex": "#b7bec2",
+        "sizes": [
+          {
+            "size": "Standard",
+            "qty": 9
+          }
+        ],
+        "image": "/homefix-bd/products/rupkotha-chrome-basin-tap-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#262626",
+        "sizes": [
+          {
+            "size": "Standard",
+            "qty": 6
+          }
+        ],
+        "image": "/homefix-bd/products/rupkotha-chrome-basin-tap-2.webp"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 19,
+    "featured": true,
+    "installable": true,
+    "installServiceSlug": "basin-tap-repair",
+    "features": [
+      "Brass body",
+      "১০ বছরের লিক-গ্যারান্টি"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Rupkotha+Chrome+Basin+Tap",
+      "https://placehold.co/800x800/f4ede6/111111?text=Rupkotha+Chrome+Basin+Tap+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Rupkotha+Chrome+Basin+Tap+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Rupkotha+Chrome+Basin+Tap+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/rupkotha-chrome-basin-tap-1.webp",
+      "/homefix-bd/products/rupkotha-chrome-basin-tap-2.webp",
+      "/homefix-bd/products/rupkotha-chrome-basin-tap-3.webp",
+      "/homefix-bd/products/rupkotha-chrome-basin-tap-4.webp"
+    ]
+  },
+  {
+    "id": "p5",
+    "slug": "meghla-flexible-shower",
+    "name": "Meghla Flexible Shower Set",
+    "nameBn": "মেঘলা ফ্লেক্সিবল শাওয়ার সেট",
+    "description": "দৈনন্দিন গোসলের জন্য টেকসই সেট।",
+    "category": "sanitary",
+    "brand": "Meghla",
+    "price": 1450,
+    "image": "/homefix-bd/products/meghla-flexible-shower-1.webp",
+    "hoverImage": "/homefix-bd/products/meghla-flexible-shower-4.webp",
+    "variants": [
+      {
+        "color": "Steel",
+        "colorHex": "#9ba3a8",
+        "sizes": [
+          {
+            "size": "1.5m",
+            "qty": 14
+          }
+        ],
+        "image": "/homefix-bd/products/meghla-flexible-shower-1.webp"
+      },
+      {
+        "color": "Bone",
+        "colorHex": "#ded5c8",
+        "sizes": [
+          {
+            "size": "1.5m",
+            "qty": 0
+          }
+        ],
+        "image": "/homefix-bd/products/meghla-flexible-shower-2.webp"
+      }
+    ],
+    "rating": 4.4,
+    "reviewCount": 12,
+    "installable": true,
+    "installServiceSlug": "bathroom-fitting",
+    "features": [
+      "Anti-rust steel",
+      "Easy clean head"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Meghla+Flexible+Shower+Set",
+      "https://placehold.co/800x800/f4ede6/111111?text=Meghla+Flexible+Shower+Set+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Meghla+Flexible+Shower+Set+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Meghla+Flexible+Shower+Set+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/meghla-flexible-shower-1.webp",
+      "/homefix-bd/products/meghla-flexible-shower-2.webp",
+      "/homefix-bd/products/meghla-flexible-shower-3.webp",
+      "/homefix-bd/products/meghla-flexible-shower-4.webp"
+    ]
+  },
+  {
+    "id": "p6",
+    "slug": "probhat-inverter-ac",
+    "name": "Probhat 1.5 Ton Inverter AC",
+    "nameBn": "প্রভাত ১.৫ টন ইনভার্টার এসি",
+    "description": "গরম দুপুরে দ্রুত ঠান্ডা, বিদ্যুৎ সাশ্রয়ী।",
+    "category": "ac",
+    "brand": "Probhat",
+    "price": 48000,
+    "compareAtPrice": 55000,
+    "image": "/homefix-bd/products/probhat-inverter-ac-1.webp",
+    "hoverImage": "/homefix-bd/products/probhat-inverter-ac-4.webp",
+    "variants": [
+      {
+        "color": "White",
+        "colorHex": "#fff",
+        "sizes": [
+          {
+            "size": "1.5 Ton",
+            "qty": 3
+          }
+        ],
+        "image": "/homefix-bd/products/probhat-inverter-ac-1.webp"
+      },
+      {
+        "color": "Ivory",
+        "colorHex": "#e8e1d4",
+        "sizes": [
+          {
+            "size": "1.5 Ton",
+            "qty": 2
+          }
+        ],
+        "image": "/homefix-bd/products/probhat-inverter-ac-2.webp"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 42,
+    "featured": true,
+    "badge": "hot",
+    "stockQty": 5,
+    "inStock": true,
+    "installable": true,
+    "installServiceSlug": "ac-installation",
+    "features": [
+      "Inverter compressor",
+      "৫ বছরের কম্প্রেসর ওয়ারেন্টি"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Probhat+1.5+Ton+Inverter+AC",
+      "https://placehold.co/800x800/f4ede6/111111?text=Probhat+1.5+Ton+Inverter+AC+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Probhat+1.5+Ton+Inverter+AC+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Probhat+1.5+Ton+Inverter+AC+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/probhat-inverter-ac-1.webp",
+      "/homefix-bd/products/probhat-inverter-ac-2.webp",
+      "/homefix-bd/products/probhat-inverter-ac-3.webp",
+      "/homefix-bd/products/probhat-inverter-ac-4.webp"
+    ]
+  },
+  {
+    "id": "p7",
+    "slug": "tara-air-purifier",
+    "name": "Tara Room Air Purifier",
+    "nameBn": "তারা রুম এয়ার পিউরিফায়ার",
+    "description": "শোবার ঘরের বাতাসকে রাখে স্বস্তির।",
+    "category": "ac",
+    "brand": "Tara",
+    "price": 9200,
+    "image": "/homefix-bd/products/tara-air-purifier-1.webp",
+    "hoverImage": "/homefix-bd/products/tara-air-purifier-4.webp",
+    "variants": [
+      {
+        "color": "Bone",
+        "colorHex": "#ded5c8",
+        "sizes": [
+          {
+            "size": "Medium",
+            "qty": 7
+          }
+        ],
+        "image": "/homefix-bd/products/tara-air-purifier-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#252525",
+        "sizes": [
+          {
+            "size": "Medium",
+            "qty": 3
+          }
+        ],
+        "image": "/homefix-bd/products/tara-air-purifier-2.webp"
+      }
+    ],
+    "rating": 4.3,
+    "reviewCount": 9,
+    "badge": "new",
+    "stockQty": 10,
+    "inStock": true,
+    "installable": false,
+    "features": [
+      "Quiet night mode",
+      "Washable filter"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Tara+Room+Air+Purifier",
+      "https://placehold.co/800x800/f4ede6/111111?text=Tara+Room+Air+Purifier+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Tara+Room+Air+Purifier+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Tara+Room+Air+Purifier+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/tara-air-purifier-1.webp",
+      "/homefix-bd/products/tara-air-purifier-2.webp",
+      "/homefix-bd/products/tara-air-purifier-3.webp",
+      "/homefix-bd/products/tara-air-purifier-4.webp"
+    ]
+  },
+  {
+    "id": "p8",
+    "slug": "chhaya-chest-freezer",
+    "name": "Chhaya Chest Freezer 180L",
+    "nameBn": "ছায়া চেস্ট ফ্রিজার ১৮০ লিটার",
+    "description": "বাড়ির রান্নাঘর ও ছোট ব্যবসার জন্য।",
+    "category": "refrigerator",
+    "brand": "Chhaya",
+    "price": 32000,
+    "image": "/homefix-bd/products/chhaya-chest-freezer-1.webp",
+    "hoverImage": "/homefix-bd/products/chhaya-chest-freezer-4.webp",
+    "variants": [
+      {
+        "color": "White",
+        "colorHex": "#fff",
+        "sizes": [
+          {
+            "size": "180L",
+            "qty": 4
+          }
+        ],
+        "image": "/homefix-bd/products/chhaya-chest-freezer-1.webp"
+      },
+      {
+        "color": "Steel",
+        "colorHex": "#9ba3a8",
+        "sizes": [
+          {
+            "size": "180L",
+            "qty": 2
+          }
+        ],
+        "image": "/homefix-bd/products/chhaya-chest-freezer-2.webp"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 15,
+    "featured": true,
+    "installable": true,
+    "installServiceSlug": "appliance-installation",
+    "features": [
+      "Low frost",
+      "৩ বছরের ওয়ারেন্টি"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Chhaya+Chest+Freezer+180L",
+      "https://placehold.co/800x800/f4ede6/111111?text=Chhaya+Chest+Freezer+180L+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Chhaya+Chest+Freezer+180L+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Chhaya+Chest+Freezer+180L+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/chhaya-chest-freezer-1.webp",
+      "/homefix-bd/products/chhaya-chest-freezer-2.webp",
+      "/homefix-bd/products/chhaya-chest-freezer-3.webp",
+      "/homefix-bd/products/chhaya-chest-freezer-4.webp"
+    ]
+  },
+  {
+    "id": "p9",
+    "slug": "meghla-4-channel-cctv-kit",
+    "name": "Meghla CCTV 4-Channel Kit",
+    "nameBn": "মেঘলা ৪-চ্যানেল সিসিটিভি কিট",
+    "description": "দরজা, ছাদ ও দোকানের নজরদারি।",
+    "category": "tv",
+    "brand": "Meghla",
+    "price": 12500,
+    "image": "/homefix-bd/products/meghla-4-channel-cctv-kit-1.webp",
+    "hoverImage": "/homefix-bd/products/meghla-4-channel-cctv-kit-4.webp",
+    "variants": [
+      {
+        "color": "White",
+        "colorHex": "#fff",
+        "sizes": [
+          {
+            "size": "4 Camera",
+            "qty": 8
+          }
+        ],
+        "image": "/homefix-bd/products/meghla-4-channel-cctv-kit-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#252525",
+        "sizes": [
+          {
+            "size": "4 Camera",
+            "qty": 4
+          }
+        ],
+        "image": "/homefix-bd/products/meghla-4-channel-cctv-kit-2.webp"
+      }
+    ],
+    "rating": 4.5,
+    "reviewCount": 16,
+    "badge": "hot",
+    "stockQty": 12,
+    "inStock": true,
+    "installable": true,
+    "installServiceSlug": "cctv-installation",
+    "features": [
+      "Night vision",
+      "Mobile alerts"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Meghla+CCTV+4-Channel+Kit",
+      "https://placehold.co/800x800/f4ede6/111111?text=Meghla+CCTV+4-Channel+Kit+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Meghla+CCTV+4-Channel+Kit+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Meghla+CCTV+4-Channel+Kit+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/meghla-4-channel-cctv-kit-1.webp",
+      "/homefix-bd/products/meghla-4-channel-cctv-kit-2.webp",
+      "/homefix-bd/products/meghla-4-channel-cctv-kit-3.webp",
+      "/homefix-bd/products/meghla-4-channel-cctv-kit-4.webp"
+    ]
+  },
+  {
+    "id": "p10",
+    "slug": "nilkontho-wall-light",
+    "name": "Nilkontho Courtyard Wall Light",
+    "nameBn": "নীলকণ্ঠ উঠোনের ওয়াল লাইট",
+    "description": "বাইরের দেয়ালে নরম, উষ্ণ আলো।",
+    "category": "electrical",
+    "brand": "Nilkontho",
+    "price": 780,
+    "image": "/homefix-bd/products/nilkontho-wall-light-1.webp",
+    "hoverImage": "/homefix-bd/products/nilkontho-wall-light-4.webp",
+    "variants": [
+      {
+        "color": "Bone",
+        "colorHex": "#ded5c8",
+        "sizes": [
+          {
+            "size": "Standard",
+            "qty": 22
+          }
+        ],
+        "image": "/homefix-bd/products/nilkontho-wall-light-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#252525",
+        "sizes": [
+          {
+            "size": "Standard",
+            "qty": 11
+          }
+        ],
+        "image": "/homefix-bd/products/nilkontho-wall-light-2.webp"
+      }
+    ],
+    "rating": 4.2,
+    "reviewCount": 8,
+    "installable": true,
+    "installServiceSlug": "electrical-safety-check",
+    "features": [
+      "Weather resistant",
+      "Warm LED"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Nilkontho+Courtyard+Wall+Light",
+      "https://placehold.co/800x800/f4ede6/111111?text=Nilkontho+Courtyard+Wall+Light+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Nilkontho+Courtyard+Wall+Light+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Nilkontho+Courtyard+Wall+Light+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/nilkontho-wall-light-1.webp",
+      "/homefix-bd/products/nilkontho-wall-light-2.webp",
+      "/homefix-bd/products/nilkontho-wall-light-3.webp",
+      "/homefix-bd/products/nilkontho-wall-light-4.webp"
+    ]
+  },
+  {
+    "id": "p11",
+    "slug": "bhora-pipe-repair-kit",
+    "name": "Bhor Pipe Repair Kit",
+    "nameBn": "ভোর পাইপ রিপেয়ার কিট",
+    "description": "ছোটখাটো লিক নিজেই সামলান।",
+    "category": "plumbing",
+    "brand": "Bhor",
+    "price": 260,
+    "image": "/homefix-bd/products/bhora-pipe-repair-kit-1.webp",
+    "hoverImage": "/homefix-bd/products/bhora-pipe-repair-kit-4.webp",
+    "variants": [
+      {
+        "color": "Steel",
+        "colorHex": "#9ba3a8",
+        "sizes": [
+          {
+            "size": "12 piece",
+            "qty": 35
+          }
+        ],
+        "image": "/homefix-bd/products/bhora-pipe-repair-kit-1.webp"
+      },
+      {
+        "color": "Bone",
+        "colorHex": "#ded5c8",
+        "sizes": [
+          {
+            "size": "12 piece",
+            "qty": 10
+          }
+        ],
+        "image": "/homefix-bd/products/bhora-pipe-repair-kit-2.webp"
+      }
+    ],
+    "rating": 4.1,
+    "reviewCount": 7,
+    "installable": false,
+    "features": [
+      "PTFE tape",
+      "Two couplers"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Bhor+Pipe+Repair+Kit",
+      "https://placehold.co/800x800/f4ede6/111111?text=Bhor+Pipe+Repair+Kit+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bhor+Pipe+Repair+Kit+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Bhor+Pipe+Repair+Kit+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/bhora-pipe-repair-kit-1.webp",
+      "/homefix-bd/products/bhora-pipe-repair-kit-2.webp",
+      "/homefix-bd/products/bhora-pipe-repair-kit-3.webp",
+      "/homefix-bd/products/bhora-pipe-repair-kit-4.webp"
+    ]
+  },
+  {
+    "id": "p12",
+    "slug": "rupkotha-mirror-cabinet",
+    "name": "Rupkotha Mirror Cabinet",
+    "nameBn": "রূপকথা মিরর ক্যাবিনেট",
+    "description": "বাথরুমে গুছিয়ে রাখার শান্ত সমাধান।",
+    "category": "sanitary",
+    "brand": "Rupkotha",
+    "price": 6200,
+    "image": "/homefix-bd/products/rupkotha-mirror-cabinet-1.webp",
+    "hoverImage": "/homefix-bd/products/rupkotha-mirror-cabinet-4.webp",
+    "variants": [
+      {
+        "color": "Ivory",
+        "colorHex": "#e8e1d4",
+        "sizes": [
+          {
+            "size": "60cm",
+            "qty": 6
+          }
+        ],
+        "image": "/homefix-bd/products/rupkotha-mirror-cabinet-1.webp"
+      },
+      {
+        "color": "Ink",
+        "colorHex": "#252525",
+        "sizes": [
+          {
+            "size": "60cm",
+            "qty": 2
+          }
+        ],
+        "image": "/homefix-bd/products/rupkotha-mirror-cabinet-2.webp"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 11,
+    "featured": true,
+    "installable": true,
+    "installServiceSlug": "bathroom-fitting",
+    "features": [
+      "Moisture proof",
+      "Soft-close door"
+    ],
+    "gallery": [
+      "https://placehold.co/800x800/f4ede6/111111?text=Rupkotha+Mirror+Cabinet",
+      "https://placehold.co/800x800/f4ede6/111111?text=Rupkotha+Mirror+Cabinet+-+Side",
+      "https://placehold.co/800x800/e8e2da/111111?text=Rupkotha+Mirror+Cabinet+-+Detail",
+      "https://placehold.co/800x800/e8e2da/111111?text=Rupkotha+Mirror+Cabinet+-+Hover"
+    ],
+    "images": [
+      "/homefix-bd/products/rupkotha-mirror-cabinet-1.webp",
+      "/homefix-bd/products/rupkotha-mirror-cabinet-2.webp",
+      "/homefix-bd/products/rupkotha-mirror-cabinet-3.webp",
+      "/homefix-bd/products/rupkotha-mirror-cabinet-4.webp"
+    ]
+  }
 ]

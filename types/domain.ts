@@ -16,6 +16,7 @@ export type Variant = {
 
 export type Product = {
   id: string;
+  sellerId?: string;
   slug: string;
   name: string;
   nameBn: string;
@@ -26,6 +27,8 @@ export type Product = {
   compareAtPrice?: number;
   image: string;
   hoverImage: string;
+  gallery?: string[];
+  images?: string[];
   variants: Variant[];
   rating: number;
   reviewCount: number;
@@ -51,6 +54,8 @@ export type Service = {
   priceTo: number;
   warrantyDays: number;
   icon: string;
+  image?: string;
+  gallery?: string[];
 };
 
 export type CartLine = {
@@ -109,6 +114,8 @@ export type Technician = {
   updatedAt?: string;
 };
 export type Seller = {
+  id?: string;
+  _id?: string;
   userId: string;
   businessName: string;
   ownerName: string;
@@ -124,6 +131,18 @@ export type Seller = {
   createdAt: string;
   updatedAt?: string;
 };
+export type SellerPayout = {
+  id: string;
+  sellerId: string;
+  periodFrom: string;
+  periodTo: string;
+  grossRevenue: number;
+  commission: number;
+  netPayout: number;
+  destination: string;
+  status: "pending" | "processing" | "paid" | "failed";
+  createdAt: string;
+};
 
 export type OrderItem = {
   type: "product" | "service" | "delivery";
@@ -136,6 +155,7 @@ export type OrderItem = {
   size?: string;
   qty: number;
   unitPrice: number;
+  readyToShip?: boolean;
 };
 
 export type Order = {

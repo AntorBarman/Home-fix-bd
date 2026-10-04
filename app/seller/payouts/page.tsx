@@ -1,0 +1,9 @@
+import { requireSeller } from "@/lib/rbac";
+import { sellerPayouts, sellers } from "@/lib/mongodb";
+import { requestSellerPayoutAction } from "@/lib/actions/seller-payouts";
+import { EmptyState, StatusBadge } from "@/components/seller/seller-shell";
+export default async function SellerPayouts() {
+  const session = await requireSeller(); const seller = await (await sellers()).findOne({ userId: session.user.id }); const list = seller?._id ? await (await sellerPayouts()).find({ sellerId: seller._id.toString() }).sort({ createdAt: -1 }).toArray() : [];
+  async function request() { "use server"; await requestSellerPayoutAction(); }
+  return <><div className="flex flex-wrap justify-between gap-3"><h2 className="display text-4xl font-semibold">Payouts / পেমেন্ট</h2><form action={request}><button className="bg-foreground px-4 py-3 text-sm text-background">Request payout / পেমেন্ট চান</button></form></div><div className="mt-6 overflow-x-auto border border-border"><table className="w-full text-left text-sm"><thead className="bg-muted"><tr>{["Payout ID","Period","Gross","Commission","Net","Destination","Status","Date"].map((x) => <th className="p-3" key={x}>{x}</th>)}</tr></thead><tbody>{list.map((p) => <tr className="border-t border-border" key={p.id}><td className="p-3">{p.id.slice(0, 8)}</td><td className="p-3">{new Date(p.periodFrom).toLocaleDateString()} – {new Date(p.periodTo).toLocaleDateString()}</td><td className="p-3">৳{p.grossRevenue.toLocaleString()}</td><td className="p-3">৳{p.commission.toLocaleString()}</td><td className="p-3">৳{p.netPayout.toLocaleString()}</td><td className="p-3">{p.destination}</td><td className="p-3"><StatusBadge status={p.status} /></td><td className="p-3">{new Date(p.createdAt).toLocaleDateString()}</td></tr>)}</tbody></table>{!list.length && <EmptyState>No payout requests / কোনো পেমেন্ট অনুরোধ নেই</EmptyState>}</div></>;
+}

@@ -1,0 +1,10 @@
+import { notFound } from "next/navigation";
+import { requireSeller } from "@/lib/rbac";
+import { orders, products, sellers } from "@/lib/mongodb";
+import { StatusBadge } from "@/components/seller/seller-shell";
+import { markSellerItemsReadyAction } from "@/lib/actions/seller-orders";
+export default async function SellerOrderDetail({ params }: { params: Promise<{ id: string }> }) {
+  const session = await requireSeller(); const seller = await (await sellers()).findOne({ userId: session.user.id }); const { id } = await params; const ids = seller?._id ? new Set((await (await products()).find({ sellerId: seller._id.toString() }).project({ id: 1 }).toArray()).map((p) => p.id)) : new Set<string>(); const order = await (await orders()).findOne({ id, "items.productId": { $in: [...ids] } }); if (!order) notFound(); const sellerOrder = order;
+  async function ready() { "use server"; await markSellerItemsReadyAction(sellerOrder.id); }
+  return <><h2 className="display text-4xl font-semibold">Order {order.orderNumber}</h2><p className="mt-2 text-foreground/60">{order.address.fullName} · {order.address.phone}</p><div className="mt-6 grid gap-3">{order.items.map((item, index) => <div className={`border p-4 ${item.productId && ids.has(item.productId) ? "border-sale" : "border-border"}`} key={`${item.productId ?? item.slug}-${index}`}><div className="flex justify-between"><span>{item.name} × {item.qty}</span><span>৳{(item.unitPrice * item.qty).toLocaleString()}</span></div>{item.productId && ids.has(item.productId) && <p className="mt-2 text-xs text-sale">{item.readyToShip ? "Ready to ship / পাঠানোর জন্য প্রস্তুত" : "Your item / আপনার পণ্য"}</p>}</div>)}</div><div className="mt-6 flex flex-wrap items-center gap-3">Status / অবস্থা: <StatusBadge status={order.status} /><form action={ready}><button className="border border-border px-3 py-2 text-sm">Mark items ready / প্রস্তুত</button></form></div><p className="mt-4 text-sm text-foreground/60">Order status is managed by admin. Sellers may prepare their items for dispatch.</p></>;
+}
