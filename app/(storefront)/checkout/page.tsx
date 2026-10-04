@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { requireUser } from "@/lib/rbac";
 import { settings } from "@/lib/mongodb";
 import { CheckoutForm } from "./checkout-form";
 
 export default async function CheckoutPage() {
-  const session = await auth();
-  if (!session?.user) redirect("/signin?from=/checkout");
+  const session = await requireUser();
+  if (session.user.role !== "customer") redirect("/account?error=customer-only");
   let enabled = { enableCod: true, enableBkash: Boolean(process.env.BKASH_APP_KEY), enableNagad: Boolean(process.env.NAGAD_MERCHANT_ID), enableSslcommerz: Boolean(process.env.SSLCOMMERZ_STORE_ID) };
   try {
     const store = await (await settings()).findOne({ _id: "singleton" });

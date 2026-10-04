@@ -1,10 +1,75 @@
-import { notFound } from "next/navigation";
+import Link from "next/link";
 import { requireTechnician } from "@/lib/rbac";
 import { bookings, technicians } from "@/lib/mongodb";
-import { updateBookingStatusAction, issueQuotationAction, completeBookingAction } from "@/lib/actions/technician";
-import { VALID_TRANSITIONS } from "@/lib/booking";
-async function statusAction(formData: FormData) { "use server"; await updateBookingStatusAction(formData); }
-async function quotationAction(formData: FormData) { "use server"; await issueQuotationAction(formData); }
-async function completeAction(formData: FormData) { "use server"; await completeBookingAction(formData); }
-const steps = ["assigned", "on_the_way", "arrived", "started", "completed"] as const;
-export default async function ActiveJob({ params }: { params: Promise<{ id: string }> }) { const session = await requireTechnician(); const number = (await params).id; const tech = await (await technicians()).findOne({ userId: session.user.id }); const ids = tech ? [tech.id, tech._id.toString()] : []; const job = await (await bookings()).findOne({ bookingNumber: number, technicianId: { $in: ids } }); if (!job) notFound(); const next = VALID_TRANSITIONS[job.status]?.find((status) => steps.includes(status as typeof steps[number])); return <main><p className="text-xs uppercase tracking-[.2em] text-sale">{job.bookingNumber}</p><h1 className="display mt-2 text-5xl font-semibold">{job.serviceName}</h1><div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]"><div><section className="border border-border p-5"><h2 className="display text-2xl font-semibold">Customer / গ্রাহক</h2><p className="mt-3">{job.customerName} · <a className="underline" href={`tel:${job.customerPhone}`}>{job.customerPhone}</a></p><p className="mt-2 text-sm text-foreground/60">{job.address.line1}, {job.address.area}, {job.address.city}</p><h3 className="mt-6 font-semibold">Problem / সমস্যা</h3><p className="mt-2 text-sm leading-6">{job.problemDescription}</p>{job.problemMediaUrls.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{job.problemMediaUrls.map((url) => <a className="border border-border px-3 py-2 text-xs underline" href={url} key={url}>View photo</a>)}</div>}</section><section className="mt-6"><h2 className="display text-2xl font-semibold">Status timeline</h2><div className="mt-4 grid gap-2 sm:grid-cols-5">{steps.map((step) => <div className={`border p-3 text-center text-xs ${step === job.status || steps.indexOf(step) < steps.indexOf(job.status as typeof steps[number]) ? "border-foreground bg-foreground text-background" : "border-border text-foreground/45"}`} key={step}>{step.replaceAll("_", " ")}</div>)}</div>{next && <form action={statusAction} className="mt-5"><input type="hidden" name="bookingNumber" value={job.bookingNumber} /><input type="hidden" name="nextStatus" value={next} /><button className="bg-foreground px-5 py-3 text-sm text-background">Move to {next.replaceAll("_", " ")}</button></form>}</section></div><aside>{["arrived", "started"].includes(job.status) && <form action={quotationAction} className="grid gap-3 border border-border p-5"><h2 className="display text-2xl font-semibold">Quotation / কোটেশন</h2><input type="hidden" name="bookingNumber" value={job.bookingNumber} /><input name="visitFee" type="number" defaultValue={job.visitFee} min="0" placeholder="Visit fee" className="min-h-10 border border-border px-3" /><input name="labour" type="number" min="0" placeholder="Labour" required className="min-h-10 border border-border px-3" /><textarea name="parts" defaultValue="[]" placeholder='Parts JSON: [{"name":"Valve","price":300}]' className="min-h-20 border border-border p-2 text-xs" /><textarea name="notes" placeholder="Notes" className="min-h-20 border border-border p-2" /><button className="bg-foreground px-4 py-3 text-sm text-background">Send quotation</button></form>}{job.quotation && <div className="mt-5 border border-border p-5"><h2 className="font-semibold">Quotation status: {job.quotation.status}</h2><p className="mt-2 text-2xl">৳{(job.quotation.total ?? job.quotation.amount).toLocaleString()}</p>{job.quotation.status === "accepted" && <form action={completeAction} className="mt-4"><input type="hidden" name="bookingNumber" value={job.bookingNumber} /><button className="bg-foreground px-4 py-3 text-sm text-background">Complete job</button></form>}</div>}</aside></div></main>; }
+
+export default async function ActiveJobsPage() {
+  const session = await requireTechnician();
+  const tech = await (await technicians()).findOne({
+    userId: session.user.id as string,
+  });
+  if (!tech) return <p>Technician profile not found</p>;
+
+  const technicianIds = [tech._id.toString(), tech.id];
+
+  // Active = status in accepted/on_the_way/arrived/started
+  const activeJobs = await (await bookings())
+    .find({
+      technicianId: { $in: technicianIds },
+      status: {
+        $in: ["accepted", "on_the_way", "arrived", "started"],
+      },
+    })
+    .sort({ scheduledAt: 1 })
+    .toArray();
+
+  return (
+    <div>
+      <p className="text-xs uppercase tracking-[.2em] text-foreground/45">
+        Technician · Active
+      </p>
+      <h1 className="display mt-2 text-3xl font-semibold">Active jobs</h1>
+      <p className="mt-2 text-sm text-foreground/60">
+        চলমান কাজের তালিকা। প্রতিটি কাজের detail দেখতে ক্লিক করুন।
+      </p>
+
+      <div className="mt-8 grid gap-3">
+        {activeJobs.length ? (
+          activeJobs.map((booking) => (
+            <Link
+              key={booking.id}
+              href={`/technician/active/${booking.bookingNumber || booking.id}`}
+              className="grid gap-3 border border-border p-5 hover:bg-muted sm:grid-cols-[1fr_auto_auto]"
+            >
+              <div>
+                <p className="font-semibold">{booking.bookingNumber}</p>
+                <p className="mt-1 text-sm">{booking.serviceName}</p>
+                <p className="mt-1 text-xs text-foreground/50">
+                  {booking.customerName} · {booking.customerPhone}
+                </p>
+              </div>
+              <span className="rounded bg-muted px-2 py-0.5 text-xs uppercase">
+                {booking.status}
+              </span>
+              <span className="text-sm text-foreground/60">
+                {new Date(booking.scheduledAt).toLocaleString()}
+              </span>
+            </Link>
+          ))
+        ) : (
+          <div className="border border-border p-12 text-center">
+            <p className="display text-2xl">কোনো active job নেই</p>
+            <p className="mt-3 text-sm text-foreground/60">
+              নতুন কাজ পেলে এখানে দেখা যাবে।
+            </p>
+            <Link
+              href="/technician/requests"
+              className="mt-6 inline-flex bg-foreground px-5 py-3 text-sm font-semibold text-background"
+            >
+              View requests
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

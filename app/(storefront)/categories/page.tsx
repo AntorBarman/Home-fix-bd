@@ -1,4 +1,48 @@
 import Link from "next/link";
-import { Storefront } from "@/components/storefront";
-import { categories } from "@/lib/catalog";
-export default function Categories() { return <Storefront><main className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6"><p className="text-xs uppercase tracking-[.2em] text-foreground/45">Browse by need</p><h1 className="display mt-2 text-5xl font-semibold">সব বিভাগ</h1><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{categories.map((c) => <Link href={`/category/${c.slug}`} key={c.id} className="group min-h-48 border border-border bg-muted p-6 transition hover:-translate-y-1 hover:border-foreground"><span className="text-4xl">{c.icon}</span><h2 className="display mt-8 text-2xl font-semibold">{c.nameBn}</h2><p className="mt-1 text-sm text-foreground/55">{c.description}</p></Link>)}</div></main></Storefront>; }
+import { notFound } from "next/navigation";
+import { ProductGrid, Storefront } from "@/components/storefront";
+import { getProductsByCategory, categories } from "@/lib/catalog";
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const category = categories.find((c) => c.slug === slug);
+  if (!category) notFound();
+
+  const items = await getProductsByCategory(slug);
+
+  return (
+    <Storefront>
+      <main className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6">
+        <p className="text-xs uppercase tracking-[.2em] text-foreground/45">
+          {category.name}
+        </p>
+        <h1 className="display mt-2 text-5xl font-semibold">
+          {category.nameBn}
+        </h1>
+        <p className="mt-3 max-w-md text-sm text-foreground/60">
+          {category.description}
+        </p>
+
+        <div className="mt-12">
+          {items.length ? (
+            <ProductGrid items={items} />
+          ) : (
+            <div className="border border-border p-12 text-center">
+              <p className="display text-2xl">এই বিভাগে কোনো পণ্য নেই</p>
+              <Link
+                href="/shop"
+                className="mt-6 inline-flex bg-foreground px-5 py-3 text-sm font-semibold text-background"
+              >
+                সব পণ্য দেখুন
+              </Link>
+            </div>
+          )}
+        </div>
+      </main>
+    </Storefront>
+  );
+}

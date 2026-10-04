@@ -22,6 +22,8 @@ export function ProductArt({ product, compact = false }: { product: Product; com
 
 export function ProductCard({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
+  const { data: session } = useSession();
+  const canBuy = !session || session.user.role === "customer";
   function add() {
     const raw = localStorage.getItem(cartKey);
     const cart = raw ? JSON.parse(raw) as { productId: string; slug: string; name: string; image: string; color: string; size: string; qty: number; addInstallation: boolean }[] : [];
@@ -46,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
       <Link href={`/product/${product.slug}`}><h3 className="mt-1 font-medium leading-tight">{product.name}</h3></Link>
       <div className="mt-2 flex items-center gap-1 text-xs"><Star size={13} className="fill-sale text-sale" /> {product.rating} <span className="text-foreground/45">({product.reviewCount})</span></div>
       <div className="mt-2 flex items-center gap-2"><span className="font-semibold">{formatShopPrice(product.price)}</span>{product.compareAtPrice && <span className="text-xs text-foreground/40 line-through">{formatShopPrice(product.compareAtPrice)}</span>}</div>
-      <button disabled={!product.inStock} onClick={add} className="mt-3 flex min-h-10 w-full items-center justify-center gap-2 border border-foreground px-3 text-xs font-semibold uppercase tracking-wider transition hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-40">{added ? <><Check size={14} /> Added</> : product.inStock ? "Add to cart" : "Sold out"}</button>
+      {canBuy ? <button disabled={!product.inStock} onClick={add} className="mt-3 flex min-h-10 w-full items-center justify-center gap-2 border border-foreground px-3 text-xs font-semibold uppercase tracking-wider transition hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-40">{added ? <><Check size={14} /> Added</> : product.inStock ? "Add to cart" : "Sold out"}</button> : <p className="mt-3 text-center text-xs text-foreground/60">এই পণ্য ক্রয় করতে কাস্টমার অ্যাকাউন্ট দরকার।</p>}
     </div>
   </article>;
 }
@@ -60,18 +62,51 @@ export function Header() {
   const { data: session } = useSession();
   const role = session?.user?.role;
   const firstName = session?.user?.name?.split(" ")[0] || "Account";
-  const accountLinks = [
-    { href: "/account", label: "Account", visible: true },
-    { href: "/account/orders", label: "Orders", visible: true },
-    { href: "/account/bookings", label: "Bookings", visible: true },
-    { href: "/admin", label: "Admin", visible: role === "admin" },
-    { href: "/technician", label: "Technician dashboard", visible: role === "technician" },
-    { href: "/seller", label: "Seller dashboard", visible: role === "seller" },
-  ];
+
+  // ✅ Role-based account links
+  const accountLinks = (() => {
+    if (!role || role === "customer") {
+      return [
+        { href: "/account", label: "Account" },
+        { href: "/account/orders", label: "Orders" },
+        { href: "/account/bookings", label: "Bookings" },
+        { href: "/account/warranty", label: "Warranty" },
+        { href: "/account/support", label: "Support" },
+      ];
+    }
+    if (role === "technician") {
+      return [
+        { href: "/technician/dashboard", label: "Technician dashboard" },
+        { href: "/technician/profile", label: "My profile" },
+        { href: "/technician/availability", label: "Availability" },
+      ];
+    }
+    if (role === "seller") {
+      return [
+        { href: "/seller/dashboard", label: "Seller dashboard" },
+        { href: "/seller/products", label: "My products" },
+        { href: "/seller/orders", label: "Orders" },
+      ];
+    }
+    if (role === "admin") {
+      return [
+        { href: "/admin/dashboard", label: "Admin dashboard" },
+        { href: "/admin/orders", label: "All orders" },
+      ];
+    }
+    return [];
+  })();
+
   useEffect(() => {
-    const sync = () => { const raw = localStorage.getItem(cartKey); setCount(raw ? (JSON.parse(raw) as { qty: number }[]).reduce((a, b) => a + b.qty, 0) : 0); };
-    sync(); window.addEventListener("cart-change", sync); return () => window.removeEventListener("cart-change", sync);
+    const sync = () => {
+      const raw = localStorage.getItem(cartKey);
+      setCount(raw ? (JSON.parse(raw) as { qty: number }[]).reduce((a, b) => a + b.qty, 0) : 0);
+    };
+    sync();
+    window.addEventListener("cart-change", sync);
+    return () => window.removeEventListener("cart-change", sync);
   }, []);
+
   useEffect(() => {
     const media = window.matchMedia("(min-width: 768px)");
     const updateDesktop = () => {
@@ -101,18 +136,204 @@ export function Header() {
       if (raf) window.cancelAnimationFrame(raf);
     };
   }, []);
+
   const desktopCompact = isDesktop && compact;
-  return <header className={`relative sticky top-0 z-50 h-[72px] border-b border-border bg-background md:h-[156px] ${desktopCompact ? "shadow-sm" : ""}`}>
-    <div className={`absolute inset-x-0 top-0 hidden border-b border-border bg-foreground px-4 py-2 text-center text-xs text-background transition-[opacity,transform] duration-200 md:block ${desktopCompact ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}>বিশ্বস্ত মিস্ত্রি, এক ক্লিকেই · ৳৫০০০+ অর্ডারে ফ্রি ডেলিভারি · 9:00am – 9:00pm</div>
-    <div className={`absolute inset-x-0 top-0 mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 transition-[transform] duration-200 sm:px-6 md:top-8 md:py-5 ${desktopCompact ? "md:-translate-y-8" : ""}`}>
-      <button aria-label="Open menu" onClick={() => setMenu(true)} className="md:hidden"><Menu /></button>
-      <Link href="/" className="display text-2xl font-bold tracking-tight">HomeFix <span className="text-sale">BD</span></Link>
-      <form action="/shop" method="get" className="hidden flex-1 md:block"><div className="mx-auto flex max-w-xl items-center gap-2 border-b border-foreground/30 pb-2 text-sm text-foreground/55"><Search size={16} /><input type="search" name="q" placeholder="ঘরের জন্য কী খুঁজছেন?" aria-label="Search products" onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.value = ""; }} className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-foreground/55" /><button type="submit" aria-label="Submit search" className="text-foreground/60 hover:text-foreground"><Search size={16} /></button></div></form>
-      <nav className="ml-auto flex items-center gap-3 text-sm"><Link href="/shop" className="hidden md:block">Shop</Link><Link href="/services" className="hidden md:block">Services</Link><Link href="/problem-solver" className="hidden sm:block">Problem solver</Link>{session ? <div className="relative hidden md:block"><button onClick={() => setAccountOpen((open) => !open)} className="min-h-10 border border-border px-3 text-sm font-medium">{firstName}</button>{accountOpen && <div className="absolute right-0 top-12 z-40 grid min-w-48 gap-1 border border-border bg-background p-2 shadow-lg">{accountLinks.filter((item) => item.visible).map((item) => <Link key={item.href} href={item.href} onClick={() => setAccountOpen(false)} className="px-3 py-2 text-sm hover:bg-muted">{item.label}</Link>)}<button onClick={() => signOut({ callbackUrl: "/" })} className="border-t border-border px-3 py-2 text-left text-sm hover:bg-muted">Sign out</button></div>}</div> : <Link href="/signin" className="hidden min-h-10 items-center px-2 font-medium md:flex">Sign In</Link>}<Link href="/cart" className="relative flex items-center gap-1"><ShoppingBag size={19} /><span className="text-xs">{count}</span></Link></nav>
-    </div>
-    <div className={`absolute inset-x-0 bottom-0 hidden border-t border-border transition-[opacity,transform] duration-200 md:block ${desktopCompact ? "translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}><nav className="mx-auto flex max-w-[1400px] items-center gap-7 px-4 py-3 text-sm sm:px-6"><Link href="/categories" className="font-semibold">Shop by categories</Link><Link href="/technicians">Technicians</Link><Link href="/blog">Journal</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link><span className="ml-auto text-xs text-foreground/50">Dhaka · Mirpur · Uttara · Gulshan</span></nav></div>
-    {menu && <div className="fixed inset-0 z-50 bg-background p-5 md:hidden"><div className="flex items-center justify-between"><span className="display text-2xl font-bold">HomeFix <span className="text-sale">BD</span></span><button onClick={() => setMenu(false)} aria-label="Close menu"><X /></button></div><form action="/shop" method="get" className="mt-8 flex items-center gap-2 border-b border-foreground/30 pb-3"><Search size={18} /><input type="search" name="q" placeholder="ঘরের জন্য কী খুঁজছেন?" aria-label="Search products" onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.value = ""; }} className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-foreground/55" /><button type="submit" aria-label="Submit search"><Search size={18} /></button></form><div className="mt-8 grid gap-5 text-2xl font-medium">{session ? <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><p className="display text-2xl">Hi, {firstName}</p>{accountLinks.filter((item) => item.visible).map((item) => <Link key={item.href} href={item.href} onClick={() => setMenu(false)}>{item.label}</Link>)}<button onClick={() => signOut({ callbackUrl: "/" })} className="text-left text-sale">Sign out</button></div> : <div className="grid gap-3 border-b border-border pb-6 text-base font-medium"><Link href="/signin" onClick={() => setMenu(false)}>Sign In</Link><Link href="/register" onClick={() => setMenu(false)} className="text-sale">Sign Up</Link></div>}<Link href="/shop" onClick={() => setMenu(false)}>Shop</Link><Link href="/services" onClick={() => setMenu(false)}>Services</Link><Link href="/technicians" onClick={() => setMenu(false)}>Technicians</Link><Link href="/problem-solver" onClick={() => setMenu(false)}>Problem solver</Link><Link href="/blog" onClick={() => setMenu(false)}>Journal</Link></div></div>}
-  </header>;
+  const canBuy = !session || session.user.role === "customer";
+
+  useEffect(() => {
+    if (session?.user?.role && session.user.role !== "customer") {
+      localStorage.removeItem(cartKey);
+      window.dispatchEvent(new Event("cart-change"));
+    }
+  }, [session?.user?.role]);
+
+  return (
+    <header
+      className={`relative sticky top-0 z-50 h-[72px] border-b border-border bg-background md:h-[156px] ${
+        desktopCompact ? "shadow-sm" : ""
+      }`}
+    >
+      <div
+        className={`absolute inset-x-0 top-0 hidden border-b border-border bg-foreground px-4 py-2 text-center text-xs text-background transition-[opacity,transform] duration-200 md:block ${
+          desktopCompact ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+        }`}
+      >
+        বিশ্বস্ত মিস্ত্রি, এক ক্লিকেই · ৳৫০০০+ অর্ডারে ফ্রি ডেলিভারি · 9:00am – 9:00pm
+      </div>
+
+      <div
+        className={`absolute inset-x-0 top-0 mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 transition-[transform] duration-200 sm:px-6 md:top-8 md:py-5 ${
+          desktopCompact ? "md:-translate-y-8" : ""
+        }`}
+      >
+        <button
+          aria-label="Open menu"
+          onClick={() => setMenu(true)}
+          className="md:hidden"
+        >
+          <Menu />
+        </button>
+        <Link href="/" className="display text-2xl font-bold tracking-tight">
+          HomeFix <span className="text-sale">BD</span>
+        </Link>
+        <form action="/shop" method="get" className="hidden flex-1 md:block">
+          <div className="mx-auto flex max-w-xl items-center gap-2 border-b border-foreground/30 pb-2 text-sm text-foreground/55">
+            <Search size={16} />
+            <input
+              type="search"
+              name="q"
+              placeholder="ঘরের জন্য কী খুঁজছেন?"
+              aria-label="Search products"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") event.currentTarget.value = "";
+              }}
+              className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-foreground/55"
+            />
+            <button type="submit" aria-label="Submit search" className="text-foreground/60 hover:text-foreground">
+              <Search size={16} />
+            </button>
+          </div>
+        </form>
+
+        <nav className="ml-auto flex items-center gap-3 text-sm">
+          <Link href="/shop" className="hidden md:block">Shop</Link>
+          <Link href="/services" className="hidden md:block">Services</Link>
+          <Link href="/problem-solver" className="hidden sm:block">Problem solver</Link>
+
+          {session ? (
+            <div className="relative hidden md:block">
+              <button
+                onClick={() => setAccountOpen((open) => !open)}
+                className="min-h-10 border border-border px-3 text-sm font-medium"
+              >
+                {firstName}
+              </button>
+              {accountOpen && (
+                <div className="absolute right-0 top-12 z-40 grid min-w-48 gap-1 border border-border bg-background p-2 shadow-lg">
+                  {/* ✅ No filter — role-based array already */}
+                  {accountLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setAccountOpen(false)}
+                      className="px-3 py-2 text-sm hover:bg-muted"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="border-t border-border px-3 py-2 text-left text-sm hover:bg-muted"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/signin" className="hidden min-h-10 items-center px-2 font-medium md:flex">
+              Sign In
+            </Link>
+          )}
+
+          {canBuy ? (
+            <Link href="/cart" className="relative flex items-center gap-1">
+              <ShoppingBag size={19} />
+              <span className="text-xs">{count}</span>
+            </Link>
+          ) : (
+            <span
+              title="আপনার অ্যাকাউন্ট ক্রয় করতে পারবে না"
+              className="relative flex items-center gap-1 text-foreground/40"
+            >
+              <ShoppingBag size={19} />
+            </span>
+          )}
+        </nav>
+      </div>
+
+      <div
+        className={`absolute inset-x-0 bottom-0 hidden border-t border-border transition-[opacity,transform] duration-200 md:block ${
+          desktopCompact ? "translate-y-full opacity-0" : "translate-y-0 opacity-100"
+        }`}
+      >
+        <nav className="mx-auto flex max-w-[1400px] items-center gap-7 px-4 py-3 text-sm sm:px-6">
+          <Link href="/categories" className="font-semibold">Shop by categories</Link>
+          <Link href="/technicians">Technicians</Link>
+          <Link href="/blog">Journal</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
+          <span className="ml-auto text-xs text-foreground/50">
+            Dhaka · Mirpur · Uttara · Gulshan
+          </span>
+        </nav>
+      </div>
+
+      {menu && (
+        <div className="fixed inset-0 z-50 bg-background p-5 md:hidden">
+          <div className="flex items-center justify-between">
+            <span className="display text-2xl font-bold">
+              HomeFix <span className="text-sale">BD</span>
+            </span>
+            <button onClick={() => setMenu(false)} aria-label="Close menu">
+              <X />
+            </button>
+          </div>
+          <form action="/shop" method="get" className="mt-8 flex items-center gap-2 border-b border-foreground/30 pb-3">
+            <Search size={18} />
+            <input
+              type="search"
+              name="q"
+              placeholder="ঘরের জন্য কী খুঁজছেন?"
+              aria-label="Search products"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") event.currentTarget.value = "";
+              }}
+              className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-foreground/55"
+            />
+            <button type="submit" aria-label="Submit search">
+              <Search size={18} />
+            </button>
+          </form>
+          <div className="mt-8 grid gap-5 text-2xl font-medium">
+            {session ? (
+              <div className="grid gap-3 border-b border-border pb-6 text-base font-medium">
+                <p className="display text-2xl">Hi, {firstName}</p>
+                {/* ✅ No filter — role-based already */}
+                {accountLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenu(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-left text-sale"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <div className="grid gap-3 border-b border-border pb-6 text-base font-medium">
+                <Link href="/signin" onClick={() => setMenu(false)}>Sign In</Link>
+                <Link href="/register" onClick={() => setMenu(false)} className="text-sale">
+                  Sign Up
+                </Link>
+              </div>
+            )}
+            <Link href="/shop" onClick={() => setMenu(false)}>Shop</Link>
+            <Link href="/services" onClick={() => setMenu(false)}>Services</Link>
+            <Link href="/technicians" onClick={() => setMenu(false)}>Technicians</Link>
+            <Link href="/problem-solver" onClick={() => setMenu(false)}>Problem solver</Link>
+            <Link href="/blog" onClick={() => setMenu(false)}>Journal</Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
 }
 
 export function Footer() {

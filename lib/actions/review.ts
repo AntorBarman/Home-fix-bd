@@ -5,6 +5,7 @@ import { orders, products, reviews } from "@/lib/mongodb";
 import { reviewSchema } from "@/lib/schemas/review";
 export async function submitReviewAction(formData: FormData) {
   const session = await requireUser();
+  if (session.user.role !== "customer") return { error: "শুধু কাস্টমার রিভিউ দিতে পারবেন।" };
   const parsed = reviewSchema.safeParse({ productId: formData.get("productId"), rating: formData.get("rating"), title: formData.get("title"), body: formData.get("body"), photos: String(formData.get("photos") || "").split("\n").filter(Boolean) });
   if (!parsed.success) return { error: "Please check the review details.", fieldErrors: parsed.error.flatten().fieldErrors };
   const purchased = await (await orders()).findOne({ userId: session.user.id, paymentStatus: "paid", "items.productId": parsed.data.productId });

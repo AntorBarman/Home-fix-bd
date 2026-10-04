@@ -49,3 +49,7 @@ Deviations:
 
 - Payment, Mongo, OAuth, and role mutation paths are intentionally configuration-backed and do not claim live credentials in this workspace.
 - The route fallback provides a coherent surface for the remaining account, admin, seller, technician, legal, and booking URLs while the core shopping and problem-first service flows remain fully rendered.
+
+## Phase J — Role-separated purchasing ✅ 2026-10-04
+
+Only customer accounts can add products to the cart, check out, place orders, submit product reviews, or book technicians. Seller, technician, and admin accounts can still browse the storefront, but their cart and checkout actions are disabled. Orders HF-2026-00002 and HF-2026-00005 were placed by admin/seller accounts before role separation was enforced. They are kept for historical data but new orders are blocked.

@@ -38,18 +38,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as "customer" | "technician" | "seller" | "admin";
+        session.user.role = token.role ?? "customer";
       }
       return session;
     },
     async signIn({ user, account }) {
       if (account?.provider !== "credentials" && user.email) {
         const email = user.email.toLowerCase();
-        await (await users()).updateOne(
+        const collection = await users();
+        await collection.updateOne(
           { email },
           { $set: { email, name: user.name ?? email, image: user.image ?? undefined, updatedAt: new Date().toISOString() }, $setOnInsert: { role: "customer", addresses: [], createdAt: new Date().toISOString() } },
           { upsert: true },
         );
+        const storedUser = await collection.findOne({ email });
+        user.role = storedUser?.role ?? "customer";
       }
       return true;
     },

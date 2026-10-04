@@ -12,6 +12,9 @@ import type { CartLine, Order, Product } from "@/types";
 
 export async function checkoutAction(formData: FormData) {
   const session = await requireUser();
+  if (session.user.role !== "customer") {
+    return { error: "FORBIDDEN", message: "শুধু কাস্টমার অর্ডার করতে পারবেন।" };
+  }
   const raw = formData.get("payload");
   let input: unknown;
   try { input = JSON.parse(String(raw)); } catch { return { error: "INVALID_INPUT" }; }
@@ -54,7 +57,7 @@ export async function checkoutAction(formData: FormData) {
   }
 }
 
-export async function decrementStock(lines: CartLine[], productDocs: Product[]) {
+async function decrementStock(lines: CartLine[], productDocs: Product[]) {
   const collection = await products();
   for (const [index, line] of lines.entries()) {
     const product = productDocs[index];

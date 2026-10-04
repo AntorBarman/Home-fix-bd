@@ -2,28 +2,37 @@ import "server-only";
 
 import { auth } from "@/auth";
 import { users } from "@/lib/mongodb";
+import { redirect } from "next/navigation";
 
 export async function requireUser() {
   const session = await auth();
-  if (!session?.user?.email) throw new Error("Unauthorized");
+  if (!session?.user?.id) {
+    redirect("/signin");
+  }
   return session;
 }
 
 export async function requireAdmin() {
   const session = await requireUser();
-  if (session.user.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) throw new Error("Unauthorized");
+  if (session.user.role !== "admin") {
+    redirect("/");
+  }
   return session;
 }
 
 export async function requireTechnician() {
   const session = await requireUser();
-  if (session.user.role !== "technician") throw new Error("Unauthorized");
+  if (session.user.role !== "technician") {
+    redirect("/");
+  }
   return session;
 }
 
 export async function requireSeller() {
   const session = await requireUser();
-  if (session.user.role !== "seller") throw new Error("Unauthorized");
+  if (session.user.role !== "seller") {
+    redirect("/");
+  }
   return session;
 }
 
