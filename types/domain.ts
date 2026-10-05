@@ -202,6 +202,7 @@ export type Booking = {
   customerConfirmedAt?: string;
   createdAt: string;
   updatedAt: string;
+  rejectedBy?: string[];
 };
 
 export type ReviewDoc = {
