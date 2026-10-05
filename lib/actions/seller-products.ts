@@ -91,23 +91,21 @@ export async function createSellerProductAction(formData: FormData) {
 
   const parsed = parse(formData);
   if (!parsed.success) {
-    return {
-      error: "Please check the product fields.",
-      fieldErrors: parsed.error.flatten().fieldErrors,
-    };
+    throw new Error(
+      "Please check the product fields: " +
+        JSON.stringify(parsed.error.flatten().fieldErrors)
+    );
   }
   const data = parsed.data;
   const normalized = { ...data, badge: data.badge || undefined };
 
   const col = await products();
 
-  // Auto-generate SKU if empty
   let sku = (data.sku as string || "").trim();
   if (!sku) {
     sku = generateSKU(data.name, data.category || "general");
   }
 
-  // Auto-generate Slug if empty + uniqueness check
   let slug = (data.slug as string || "").trim();
   if (!slug) {
     slug = await generateUniqueSlug(col, slugify(data.name));
@@ -135,7 +133,6 @@ export async function createSellerProductAction(formData: FormData) {
   revalidatePath("/seller/products");
   revalidatePath("/shop");
 
-  // ✅ Redirect so the form unmounts and resets
   redirect("/seller/products?created=1");
 }
 
@@ -144,23 +141,22 @@ export async function updateSellerProductAction(formData: FormData) {
 
   const parsed = parse(formData);
   if (!parsed.success || !parsed.data.id) {
-    return { error: "Invalid product." };
+    throw new Error("Invalid product data.");
   }
   const { id, ...data } = parsed.data;
   const normalized = { ...data, badge: data.badge || undefined };
 
   const col = await products();
   const existing = await col.findOne({ id, sellerId });
-  if (!existing) return { error: "Product not found." };
+  if (!existing) {
+    throw new Error("Product not found.");
+  }
 
-  // Auto-generate SKU if empty (but keep existing otherwise)
   let sku = (data.sku as string || "").trim() || (existing.sku as string);
   if (!sku) sku = generateSKU(data.name, data.category || "general");
 
-  // Slug handling — regenerate only if user changed it
   let slug = (data.slug as string || "").trim();
   if (!slug) {
-    // Keep existing slug if not provided
     slug = existing.slug as string;
   } else {
     slug = await generateUniqueSlug(col, slugify(slug), id);

@@ -2,4 +2,97 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/rbac";
 import { orders } from "@/lib/mongodb";
 import { StatusBadge, EmptyState } from "@/components/admin/admin-shell";
-export default async function AdminOrders({ searchParams }: { searchParams: Promise<{ status?: string }> }) { await requireAdmin(); const { status } = await searchParams; const list = await (await orders()).find(status ? { status } : {}).sort({ createdAt: -1 }).toArray(); return <div><h2 className="display text-4xl font-semibold">Orders / অর্ডার</h2><form className="mt-6"><select name="status" defaultValue={status || ""} className="min-h-11 border border-border px-3"><option value="">All statuses</option>{["pending","paid","processing","packed","shipped","out_for_delivery","delivered","cancelled","returned"].map((item) => <option key={item}>{item}</option>)}</select><button className="ml-2 border border-border px-4 py-2">Filter</button></form><div className="mt-8 overflow-x-auto border-y border-border"><table className="w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Created</th></tr></thead><tbody>{list.map((order) => <tr className="border-b border-border" key={order.id}><td className="py-3"><Link className="underline" href={`/admin/orders/${order.id}`}>{order.orderNumber}</Link></td><td>{order.email}</td><td>৳{order.total.toLocaleString()}</td><td>{order.paymentMethod} · {order.paymentStatus}</td><td><StatusBadge status={order.status} /></td><td>{new Date(order.createdAt).toLocaleDateString()}</td></tr>)}</tbody></table>{!list.length && <EmptyState />}</div></div>; }
+
+const VALID_STATUSES = [
+  "pending",
+  "paid",
+  "processing",
+  "packed",
+  "shipped",
+  "out_for_delivery",
+  "delivered",
+  "cancelled",
+  "returned",
+] as const;
+
+type ValidStatus = (typeof VALID_STATUSES)[number];
+
+export default async function AdminOrders({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string }>;
+}) {
+  await requireAdmin();
+
+  const { status } = await searchParams;
+
+  const isValid = status && VALID_STATUSES.includes(status as ValidStatus);
+
+  const list = await (await orders())
+    .find(isValid ? { status: status as ValidStatus } : {})
+    .sort({ createdAt: -1 })
+    .toArray();
+
+  return (
+    <div>
+      <h2 className="display text-4xl font-semibold">Orders / অর্ডার</h2>
+
+      <form className="mt-6">
+        <select
+          name="status"
+          defaultValue={status || ""}
+          className="min-h-11 border border-border px-3"
+        >
+          <option value="">All statuses</option>
+          {VALID_STATUSES.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <button className="ml-2 border border-border px-4 py-2">
+          Filter
+        </button>
+      </form>
+
+      <div className="mt-8 overflow-x-auto border-y border-border">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="py-3">Order</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.map((order) => (
+              <tr className="border-b border-border" key={order.id}>
+                <td className="py-3">
+                  <Link
+                    className="underline"
+                    href={`/admin/orders/${order.id}`}
+                  >
+                    {order.orderNumber}
+                  </Link>
+                </td>
+                <td>{order.email}</td>
+                <td>৳{order.total.toLocaleString()}</td>
+                <td>
+                  {order.paymentMethod} · {order.paymentStatus}
+                </td>
+                <td>
+                  <StatusBadge status={order.status} />
+                </td>
+                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {!list.length && <EmptyState />}
+      </div>
+    </div>
+  );
+}

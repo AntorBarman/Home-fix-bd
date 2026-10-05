@@ -20,31 +20,13 @@ const bookingInput = z.object({
 });
 
 export async function createBookingAction(formData: FormData) {
-  console.log("[booking] === START ===");
-
-  let session;
-  try {
-    session = await requireUser();
-  } catch (err) {
-    console.log("[booking] FAIL: requireUser threw:", err);
-    return { error: "UNAUTHENTICATED" };
-  }
-
-  console.log("[booking] session:", {
-    id: session?.user?.id,
-    email: session?.user?.email,
-    role: session?.user?.role,
-  });
+  const session = await requireUser();
 
   if (session.user.role !== "customer") {
-    console.log("[booking] FAIL: not a customer");
-    return { error: "শুধু কাস্টমার বুকিং করতে পারবেন।" };
+    throw new Error("শুধু কাস্টমার বুকিং করতে পারবেন।");
   }
 
   const raw = Object.fromEntries(formData);
-  console.log("[booking] raw formData:", raw);
-
-  // Parse mediaUrls safely
   let mediaUrls: string[] = [];
   if (typeof raw.mediaUrls === "string" && raw.mediaUrls.trim()) {
     try {
@@ -60,22 +42,17 @@ export async function createBookingAction(formData: FormData) {
   });
 
   if (!parsed.success) {
-    console.log("[booking] FAIL: safeParse errors:", parsed.error.flatten());
-    return { error: "INVALID_INPUT" };
+    throw new Error(
+      "INVALID_INPUT: " + JSON.stringify(parsed.error.flatten().fieldErrors)
+    );
   }
-
-  console.log("[booking] parsed OK:", parsed.data);
 
   const service = await (await services()).findOne({
     slug: parsed.data.serviceSlug,
   });
-
   if (!service) {
-    console.log("[booking] FAIL: service not found:", parsed.data.serviceSlug);
-    return { error: "SERVICE_NOT_FOUND" };
+    throw new Error("SERVICE_NOT_FOUND");
   }
-
-  console.log("[booking] service found:", service.slug, service.name);
 
   const now = new Date().toISOString();
   const booking: Booking = {
@@ -113,7 +90,6 @@ export async function createBookingAction(formData: FormData) {
   let assignment = null;
 
   if (parsed.data.technicianId) {
-    console.log("[booking] manual technician:", parsed.data.technicianId);
     const selected = await technicianCollection.findOne({
       id: parsed.data.technicianId,
     });
@@ -123,38 +99,27 @@ export async function createBookingAction(formData: FormData) {
       !selected.verified ||
       !selected.skills.some((skill) => skill.serviceSlug === service.slug)
     ) {
-      console.log("[booking] FAIL: technician skill mismatch");
-      return { error: "TECHNICIAN_SKILL_MISMATCH" };
+      throw new Error("TECHNICIAN_SKILL_MISMATCH");
     }
     assignment = assignTechnician(booking, [selected]);
   } else {
-    console.log("[booking] auto-assign technician");
     assignment = assignTechnician(
       booking,
       await technicianCollection.find({}).toArray()
     );
   }
 
-  if (assignment) {
-    Object.assign(booking, assignment);
-    console.log("[booking] assigned:", booking.technicianName);
-  } else {
-    console.log("[booking] no technician assigned — booking left as requested");
-  }
+  if (assignment) Object.assign(booking, assignment);
 
-  console.log("[booking] inserting booking:", booking.bookingNumber);
-  const result = await (await bookings()).insertOne(booking);
-  console.log("[booking] INSERTED:", result.insertedId.toString());
+  await (await bookings()).insertOne(booking);
 
   revalidatePath("/account/bookings");
   revalidatePath("/technician/dashboard");
   revalidatePath("/technician/requests");
 
-  console.log("[booking] redirecting to:", `/booking/${booking.id}`);
   redirect(`/booking/${booking.id}`);
 }
 
-// ✅ Placeholder for backwards compatibility
 export async function completeBookingAction() {
   return { success: true };
 }

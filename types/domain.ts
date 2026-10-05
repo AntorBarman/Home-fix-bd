@@ -16,33 +16,37 @@ export type Variant = {
 
 export type Product = {
   id: string;
-  sellerId?: string;
   slug: string;
   name: string;
   nameBn: string;
-  description: string;
-  category: string;
+  sku?: string;                    // ✅ optional — existing products-এ নেই
   brand: string;
+  category: string;
+  description: string;
+  descriptionBn?: string;
+  image: string;
+  hoverImage?: string;
+  images?: string[];
+  gallery?: string[];              // ✅ product-detail.tsx-এর জন্য
   price: number;
   compareAtPrice?: number;
-  image: string;
-  hoverImage: string;
-  gallery?: string[];
-  images?: string[];
+  badge?: "new" | "hot" | "sale" | null;
+  published?: boolean;             // ✅ optional
+  installable?: boolean;
+  installServiceSlug?: string;
   variants: Variant[];
-  rating: number;
-  reviewCount: number;
-  featured?: boolean;
-  badge?: "new" | "hot" | "sale";
+  materials?: string[];
+  features?: string[];             // ✅ optional
+  specifications?: { label: string; value: string }[] | Record<string, string>;
+  sellerId?: string;
   stockQty: number;
   inStock: boolean;
-  published?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  installable: boolean;
-  installServiceSlug?: string;
-  features: string[];
-}
+  rating: number;
+  reviewCount: number;
+  featured?: boolean;              // ✅ optional
+  createdAt?: string;              // ✅ optional
+  updatedAt?: string;              // ✅ optional
+};
 
 export type Service = {
   slug: string;
@@ -147,6 +151,7 @@ export type SellerPayout = {
 export type OrderItem = {
   type: "product" | "service" | "delivery";
   productId?: string;
+  sellerId?: string;
   serviceSlug?: string;
   slug: string;
   name: string;
@@ -155,7 +160,7 @@ export type OrderItem = {
   size?: string;
   qty: number;
   unitPrice: number;
-  readyToShip?: boolean;
+  readyToShip?: boolean;          // ✅ যোগ করুন
 };
 
 export type Order = {
@@ -170,14 +175,39 @@ export type Order = {
   discount: number;
   total: number;
   currency: "BDT";
-  status: string;
+  status:
+    | "pending"
+    | "paid"
+    | "processing"
+    | "packed"
+    | "shipped"
+    | "out_for_delivery"
+    | "delivered"
+    | "cancelled"
+    | "returned";
   paymentMethod: "bkash" | "nagad" | "sslcommerz" | "cod";
-  paymentStatus: "pending" | "paid" | "failed" | "refunded" | "partially_refunded";
+  paymentStatus:
+    | "pending"
+    | "paid"
+    | "failed"
+    | "cancelled"
+    | "refunded"
+    | "partially_refunded";
   createdAt: string;
   updatedAt: string;
+
+  // Payment gateway references
   bkashPaymentId?: string;
   nagadPaymentId?: string;
   sslcommerzTxnId?: string;
+
+  // SSLCOMMERZ metadata
+  sslcommerzCardType?: string | null;
+  sslcommerzBankTranId?: string | null;
+
+  // ✅ Warranty fields (নতুন যোগ)
+  warrantyDays?: number;
+  warrantyExpiresAt?: string;
 };
 
 export type Booking = {
