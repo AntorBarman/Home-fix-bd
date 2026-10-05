@@ -10,10 +10,23 @@ const uri = process.env.MONGO_URI;
 if (!uri) throw new Error("MONGO_URI is required");
 
 const databaseName = process.env.MONGO_DB_NAME || "homefixbd";
+
 const globalForMongo = globalThis as typeof globalThis & {
   homeFixMongo?: { client: MongoClient; promise: Promise<MongoClient> };
 };
-const client = new MongoClient(uri);
+
+// ✅ Vercel serverless-optimized connection options
+const client = new MongoClient(uri, {
+  maxPoolSize: 10,                  // ✅ Serverless-এ 10 যথেষ্ট
+  minPoolSize: 1,                   // ✅ কম idle connection
+  maxIdleTimeMS: 60000,             // ✅ 60s পরে idle close
+  serverSelectionTimeoutMS: 5000,   // ✅ 5s timeout (আগে default 30s)
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 10000,
+  retryWrites: true,
+  retryReads: true,
+});
+
 const clientPromise = client.connect();
 globalForMongo.homeFixMongo ??= { client, promise: clientPromise };
 

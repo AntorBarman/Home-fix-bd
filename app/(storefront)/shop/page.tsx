@@ -1,3 +1,5 @@
+export const revalidate = 300;
+
 import { ProductGrid, Storefront } from "@/components/storefront";
 import { getAllProducts } from "@/lib/catalog";
 import { Search } from "lucide-react";

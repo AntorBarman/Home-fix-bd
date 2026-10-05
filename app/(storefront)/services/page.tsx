@@ -1,3 +1,5 @@
+export const revalidate = 600;
+
 import Link from "next/link";
 import { Storefront } from "@/components/storefront";
 import { serviceCatalog } from "@/lib/catalog";

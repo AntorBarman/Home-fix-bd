@@ -110,15 +110,10 @@ async function ownedBooking(bookingNumber: string, ids: string[]) {
 }
 
 function revalidateTechnician(bookingNumber: string) {
-  revalidatePath("/technician/dashboard");
   revalidatePath("/technician/requests");
   revalidatePath("/technician/active");
-  revalidatePath(`/technician/active/${bookingNumber}`);
-  revalidatePath("/technician/completed");
-  revalidatePath("/technician/earnings");
-  // ✅ Auto-reassign হলে admin এবং customer dashboard-ও update দরকার
-  revalidatePath("/admin/bookings");
-  revalidatePath("/account/bookings");
+  revalidatePath("/technician/dashboard");
+  // ✅ শুধু দরকারি paths — আগে ৮টি ছিল, এখন ৩টি
 }
 
 // ─── Accept booking ─────────────────────────────────────

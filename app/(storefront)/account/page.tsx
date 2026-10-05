@@ -7,11 +7,26 @@ export default async function AccountPage() {
   const userId = session.user.id as string;
 
   // Load customer's data in parallel
-  const [myOrders, myBookings, myWarranties] = await Promise.all([
-    (await orders()).find({ userId }).sort({ createdAt: -1 }).limit(5).toArray(),
-    (await bookings()).find({ customerId: userId }).sort({ createdAt: -1 }).limit(5).toArray(),
-    (await warranties()).find({}).toArray(),
+  const [myOrders, myBookings] = await Promise.all([
+    (await orders())
+      .find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .toArray(),
+    (await bookings())
+      .find({ customerId: userId })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .toArray(),
   ]);
+
+  // ✅ Warranties শুধু user-এর orders-এর জন্য
+  const orderNumbers = myOrders.map((o) => o.orderNumber);
+  const myWarranties = orderNumbers.length
+    ? await (await warranties())
+      .find({ orderId: { $in: orderNumbers } })
+      .toArray()
+    : [];
 
   const totalSpent = myOrders.reduce((sum, o) => sum + (o.total || 0), 0);
   const activeBookings = myBookings.filter(
@@ -23,7 +38,7 @@ export default async function AccountPage() {
   }).length;
 
   const firstName = session.user.name?.split(" ")[0] || "Guest";
-
+  
   return (
     <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
       <p className="text-xs uppercase tracking-[.2em] text-foreground/45">
